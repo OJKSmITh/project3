@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Main, Community, Music, Signin, Signup } from "../pages";
+import { Main, Community, Music, Signin, Signup, Profile } from "../pages";
 
 export const AppRouter = () => {
   return (
@@ -10,6 +10,7 @@ export const AppRouter = () => {
         <Route path="/Music" element={<Music />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   );

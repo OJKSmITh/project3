@@ -19,6 +19,9 @@ export const Header = () => {
         <li>
           <NavLink to="/signup">Signup</NavLink>
         </li>
+        <li>
+          <NavLink to="/profile">Profile</NavLink>
+        </li>
       </ul>
     </>
   );
