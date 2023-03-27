@@ -1,0 +1,10 @@
+const express = require('express')
+const router = express.Router()
+
+// const controller = require() 컨트롤러
+
+router.get('/',(req,res)=>{
+    res.send('board')
+})
+
+module.exports = router
