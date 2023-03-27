@@ -1,30 +1,23 @@
+import { HeaderStyled } from './styled';
+import { HamburgerButtonComponent } from './hamburger/hamburger';
+import {NavLink} from "react-router-dom"
+import { BellComponent, CommunityComponent, PianoComponent } from '../logo';
+import { BlackLogo } from './Logo';
 
-import { NavLink } from "react-router-dom";
 
-export const Header = () => {
-  return (
-    <>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/community">Community</NavLink>
-        </li>
-        <li>
-          <NavLink to="/music">Music</NavLink>
-        </li>
-        <li>
-          <NavLink to="/signin">Signin</NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup">Signup</NavLink>
-        </li>
-        <li>
-          <NavLink to="/profile">Profile</NavLink>
-        </li>
-      </ul>
 
-    </>
-  );
-};
+export const Header = ({color}) =>{
+    return (
+      <HeaderStyled color={color}>
+            <NavLink to="/"><BlackLogo/></NavLink>
+            <div>
+                <CommunityComponent color={"black"}/>
+                <PianoComponent color={"black"}/>
+            </div>
+            <div>
+                <BellComponent color={"black"}/>
+                <HamburgerButtonComponent/>
+            </div>
+        </HeaderStyled>
+    )
+}
