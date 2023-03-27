@@ -6,7 +6,7 @@ on:
     # ":" 객체 하나
     branches:
       # Main에 푸쉬 됐을떄
-      - main
+      - gyeong
 jobs:
   # 실행될 작업들
   build_and_upload:
