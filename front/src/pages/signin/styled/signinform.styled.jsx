@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, SocialLink, InputStyled } from "../../../common";
+import { Button, SocialLink, Input } from "../../../common";
 
 export const Left = styled.form`
   position: absolute;
@@ -52,8 +52,8 @@ export const SigninForm = () => {
         </div>
       </SocialLink>
       <Span>or use your account</Span>
-      <InputStyled placeholder="Email" />
-      <InputStyled placeholder="Password" />
+      <Input placeholder="text1" />
+      <Input placeholder="text2" />
       <Button color={"color1"}>Sign In</Button>
     </Left>
   );
