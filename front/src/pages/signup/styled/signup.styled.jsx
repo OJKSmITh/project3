@@ -10,7 +10,6 @@ export const SignupForm = () => {
       </div>
       <form>
         <Input placeholder="text1" />
-        <span></span>
         <Input placeholder="text2" />
         <Input placeholder="text2" />
         <Input placeholder="text3" />
