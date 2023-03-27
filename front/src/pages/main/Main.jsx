@@ -1,8 +1,13 @@
-
+import { Wrap } from './styled'
+import { Mainheader } from './styled'
+import { Mainword } from './styled'
 
 export const Main = () => {
 
     return <>
-        Main
+        <Wrap>
+            <Mainheader/>
+            <Mainword/>
+        </Wrap>
     </>
 }
