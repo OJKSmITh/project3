@@ -1,12 +1,14 @@
 import styled from "styled-components";
+import { InputStyled } from "./styled";
 
-export const InputStyled = styled.input`
-  background: #eee;
-  padding: 16px;
-  margin: 8px 0;
-  width: 85%;
-  border: 0;
-  outline: none;
-  border-radius: 20px;
-  box-shadow: inset 7px 2px 10px #babebc, inset -5px -5px 12px #fff;
-`;
+export const Input = ({ placeholder }) => {
+  const placeholderChip = {
+    text1: "Email",
+    text2: "Password",
+    text3: "Nickname",
+    text4: "Phone",
+    text5: "소개글",
+  };
+
+  return <InputStyled placeholder={placeholderChip[placeholder]} />;
+};

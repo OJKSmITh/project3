@@ -1,15 +1,20 @@
 import { Routes, Route } from "react-router-dom";
-import { Main, Community, Music, Signin, Signup, Welcome} from '../pages'
+
+import { Main, Community, Music, Signin, Signup, Profile, Welcome } from "../pages";
 
 export const AppRouter = () => {
-    
-    return <>
-        <Routes>
-            <Route path="/" element={<Main />}/>
-            <Route path="/community" element={<Community/>}/>
-            <Route path="/music" element={<Music/>}/>
-            <Route path="/signin" element={<Signin/>}/>
-            <Route path="/welcome" element={<Welcome/>}/>
-        </Routes>
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/Community" element={<Community />} />
+        <Route path="/Music" element={<Music />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/welcome" element={<Welcome/>}/>
+      </Routes>
+
     </>
-}
+  );
+};

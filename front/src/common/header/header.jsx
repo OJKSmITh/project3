@@ -1,13 +1,30 @@
-import { NavLink } from "react-router-dom"
-import { Navbar } from "./styled/header.styled"
+
+import { NavLink } from "react-router-dom";
+
 export const Header = () => {
-    
-    return <>
-        <Navbar>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/community">Community</NavLink></li>
-            <li><NavLink to="/music">Music</NavLink></li>
-            <li><NavLink to="/signin">Signin</NavLink></li>
-        </Navbar>
+  return (
+    <>
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/community">Community</NavLink>
+        </li>
+        <li>
+          <NavLink to="/music">Music</NavLink>
+        </li>
+        <li>
+          <NavLink to="/signin">Signin</NavLink>
+        </li>
+        <li>
+          <NavLink to="/signup">Signup</NavLink>
+        </li>
+        <li>
+          <NavLink to="/profile">Profile</NavLink>
+        </li>
+      </ul>
+
     </>
-}
+  );
+};
