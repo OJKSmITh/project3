@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Main, Community, Music, Signin, Signup, Profile } from "../pages";
+
+import { Main, Community, Music, Signin, Signup, Profile, Welcome } from "../pages";
 
 export const AppRouter = () => {
   return (
@@ -11,7 +12,9 @@ export const AppRouter = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/welcome" element={<Welcome/>}/>
       </Routes>
+
     </>
   );
 };

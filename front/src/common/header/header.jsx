@@ -1,3 +1,4 @@
+
 import { NavLink } from "react-router-dom";
 
 export const Header = () => {
@@ -23,6 +24,7 @@ export const Header = () => {
           <NavLink to="/profile">Profile</NavLink>
         </li>
       </ul>
+
     </>
   );
 };
