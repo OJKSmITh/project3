@@ -7,10 +7,11 @@ export const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(${star2});
+  background: black;
+  /* background-image: url(${star2});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
   overflow: hidden;
   margin: 0;
   padding: 0;
