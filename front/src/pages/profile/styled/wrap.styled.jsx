@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import star2 from "../../../common/images/star2.jpg";
 
 export const Wrap = styled.div`
   width: 100%;
@@ -6,7 +7,11 @@ export const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000;
+  background: black;
+  /* background-image: url(${star2});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; */
   overflow: hidden;
   margin: 0;
   padding: 0;
