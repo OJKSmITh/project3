@@ -5,7 +5,6 @@ import Logo from '../../../common/images/Logo.png'
 export const Wrapper = styled.div`
     width: 100%;
     height: 1080px;
-    background: black;
 `
 
 export const WelcomeLogo = styled.div`

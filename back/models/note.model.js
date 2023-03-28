@@ -1,5 +1,3 @@
-const {port, host} = require('../config')
-
 module.exports = (sequelize, Sequelize) => {
   class Note extends Sequelize.Model {
     static createTable() {

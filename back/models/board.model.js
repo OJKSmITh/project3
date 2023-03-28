@@ -1,5 +1,3 @@
-const {port, host} = require('../config')
-
 module.exports = (sequelize, Sequelize) => {
   class Board extends Sequelize.Model {
     static createTable() {
@@ -16,6 +14,10 @@ module.exports = (sequelize, Sequelize) => {
           hit: {
             type: Sequelize.INTEGER,
             defaultValue: 0,
+          },
+          note: {
+            type: Sequelize.STRING(30),
+            defaultValue: "Null"
           },
           state: {
             type: Sequelize.ENUM("blind", "temp", "public"),

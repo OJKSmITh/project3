@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    /* background: #000; */
 }
 
 ul, li {
@@ -10,4 +9,8 @@ ul, li {
 
 a {
     text-decoration: none;
+}
+
+body{
+    background: #000;
 }
