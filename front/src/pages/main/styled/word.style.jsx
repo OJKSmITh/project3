@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { MainButtonComponent } from '../../../common/mainheader/button/button'
+import { MainButtonComponent } from '../../../common/header/button';
 import sing from "../../../common/images/sing.png"
+import { NavLink } from 'react-router-dom';
 const ContentPosition = styled.div`
   display:flex;
   width: 1980px;
@@ -19,8 +20,8 @@ const ContentPosition = styled.div`
         background-image: url(${sing});
         background-repeat: no-repeat;
         background-size: contain;
-        width: 250px;
-        height: 200px;
+        width: 400px;
+        height: 400px;
         object-fit:cover;
         transform: rotate(-20deg);
         margin-left: auto;
@@ -31,7 +32,7 @@ const ContentPosition = styled.div`
         background-repeat: no-repeat;
         background-size: contain;
         width: 276px;
-        height: 200px;
+        height: 350px;
     }
     
     & > div:first-child{
@@ -49,15 +50,23 @@ const ContentPosition = styled.div`
     
     .worddiv1 {
         font-family:"PlayfairDisplay-Italic";
-        font-size:45px;
-  }
-    .worddiv2{
-        font-size: 30px;
-        display:inline-block;
-        margin-bottom: 0;
-    
-  }
+        font-size:120px;
+    }
+    .worddiv2 {
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-end;
+        font-size:70px;
+    }
+    .secondhang {
+        font-size:70px;
+
+    }
+    .thirdhang{
+        font-size:70px;
+    }
 `;
+
 
 export const Mainword = () => {
   return (
@@ -67,9 +76,9 @@ export const Mainword = () => {
             <div className='worddiv1'>Gpt Music</div>
             <div className='worddiv2'>에서</div>
         </div>
-        <div>자신만의 음악을</div>
-        <div>만들고 공유해보세요</div>
-        <MainButtonComponent/>
+        <div className='secondhang'>자신만의 음악을</div>
+        <div className='thirdhang'>만들고 공유해보세요</div>
+        <NavLink to="/signin"><MainButtonComponent/></NavLink>
     </div>
     <div className='imagebox'>
         <div className="image-div1"></div>
