@@ -1,2 +1,1 @@
-export * from "./blacklogo"
-export * from "./whitelogo"
+export * from "./logo"

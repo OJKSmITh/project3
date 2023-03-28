@@ -1,21 +1,25 @@
 import { HeaderStyled } from './styled';
 import { HamburgerButtonComponent } from './hamburger/hamburger';
-import {NavLink} from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { BellComponent, CommunityComponent, PianoComponent } from '../logo';
-import { BlackLogo } from './Logo';
+import { MainLogo } from './Logo/logo';
 
 
+export const Header = () =>{
+    const location = useLocation()
+    const headercolor = location.pathname === "/" ? "yellow" : "black" ;
+    const iconcolor = location.pathname === "/" ? "black" : "white"
+    const mainLogocheck  = location.pathname === "/" ? "blackLogo" : "whiteLogo"
 
-export const Header = ({color}) =>{
     return (
-      <HeaderStyled color={color}>
-            <NavLink to="/"><BlackLogo/></NavLink>
+      <HeaderStyled color={headercolor}>
+            <NavLink to="/"><MainLogo Logocheck={mainLogocheck}/></NavLink>
             <div>
-                <CommunityComponent color={"black"}/>
-                <PianoComponent color={"black"}/>
+                <NavLink to="/board"><CommunityComponent color={iconcolor}/></NavLink>
+                <NavLink to="/piano"><PianoComponent color={iconcolor}/></NavLink>
             </div>
             <div>
-                <BellComponent color={"black"}/>
+                <BellComponent color={iconcolor}/>
                 <HamburgerButtonComponent/>
             </div>
         </HeaderStyled>

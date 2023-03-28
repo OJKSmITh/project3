@@ -1,25 +1,14 @@
 import styled from 'styled-components';
-import BlackLogo from "../../../images/blackLogo.png"
-import WhiteLogo from "../../../images/Logo.png"
 
-
-export const BlackLogostyled = styled.div`
-    
-    & > div{
-        background-image:url(${BlackLogo});
-        width:45px;
-        height:45px;
-        background-size:cover;
-        object-fit:cover;
-    }
-`
-
-export const WhiteLogostyled = styled.div`
+export const MainLogoStyled = styled.div`
     & > div {
-        background-image:url(${WhiteLogo});
-        width:45px;
-        height:45px;
-        background-size:cover;
+        background-image: url(${({Img})=>Img});
+        background-position: center;
+        background-size: cover;
+        width: 45px;
+        height: 45px;
+        box-sizing: border-box;
         object-fit:cover;
     }
+
 `
