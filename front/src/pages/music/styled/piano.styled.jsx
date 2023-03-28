@@ -92,12 +92,12 @@ export const Piano = () => {
         <div className="key white" data-note="note3" onClick={playSound}></div>
         <div className="key black" data-note="note4" onClick={playSound}></div>
         <div className="key white" data-note="note5" onClick={playSound}></div>
-        <div className="key black" data-note="note6" onClick={playSound}></div>
-        <div className="key white" data-note="note7" onClick={playSound}></div>
-        <div className="key black" data-note="note8" onClick={playSound}></div>
-        <div className="key white" data-note="note9" onClick={playSound}></div>
-        <div className="key black" data-note="note10" onClick={playSound}></div>
-        <div className="key white" data-note="note11" onClick={playSound}></div>
+        <div className="key white" data-note="note6" onClick={playSound}></div>
+        <div className="key black" data-note="note7" onClick={playSound}></div>
+        <div className="key white" data-note="note8" onClick={playSound}></div>
+        <div className="key black" data-note="note9" onClick={playSound}></div>
+        <div className="key white" data-note="note10" onClick={playSound}></div>
+        <div className="key black" data-note="note11" onClick={playSound}></div>
         <div className="key white" data-note="note12" onClick={playSound}></div>
       </Pianolayout>
     </>
