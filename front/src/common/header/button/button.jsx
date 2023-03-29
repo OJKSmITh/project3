@@ -10,17 +10,17 @@ export const MainButtonComponent = () => {
   return (
     <>
       {isLogin ? (
-        <NavLink to="/signin">
-          <MainButton>
+        <MainButton>
+          <NavLink to="/signin">
             <div>로그인하여 음악 찾기</div>
-          </MainButton>
-        </NavLink>
+          </NavLink>
+        </MainButton>
       ) : (
-        <NavLink to="/music">
-          <MainButton>
+        <MainButton>
+          <NavLink to="/music">
             <div>Play GptMusic!!</div>
-          </MainButton>
-        </NavLink>
+          </NavLink>
+        </MainButton>
       )}
     </>
   );
