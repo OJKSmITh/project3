@@ -16,14 +16,21 @@ export const Form = styled.div`
     display: none;
   }
 
-  & > div {
+  & > form:nth-child(1) {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    & > input {
+      display: inline;
+    }
+
   }
 
-  & > div > button {
+
+  & > form > button {
     padding: 10px 20px;
+    margin-bottom: 10px;
   }
 
   & > form {
@@ -32,6 +39,9 @@ export const Form = styled.div`
   }
 
   & > form > input {
+
+    margin: 15px auto;
+    display: block;
     width: 70%;
   }
 
