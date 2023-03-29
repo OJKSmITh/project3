@@ -10,25 +10,23 @@ export const Header = () => {
   const iconcolor = location.pathname === "/" ? "black" : "white";
   const mainLogocheck = location.pathname === "/" ? "blackLogo" : "whiteLogo";
 
-
-export const Header = () =>{
-    const location = useLocation()
-    const headercolor = location.pathname === "/" ? "yellow" : "black" ;
-    const iconcolor = location.pathname === "/" ? "black" : "white"
-    const mainLogocheck  = location.pathname === "/" ? "blackLogo" : "whiteLogo"
-
-    return (
-      <HeaderStyled color={headercolor}>
-            <NavLink to="/"><MainLogo Logocheck={mainLogocheck}/></NavLink>
-            <div>
-                <NavLink to="/board"><CommunityComponent color={iconcolor}/></NavLink>
-                <NavLink to="/music"><PianoComponent color={iconcolor}/></NavLink>
-            </div>
-            <div>
-                <BellComponent color={iconcolor}/>
-                <HamburgerButtonComponent/>
-            </div>
-        </HeaderStyled>
-    )
-}
-
+  return (
+    <HeaderStyled color={headercolor}>
+      <NavLink to="/">
+        <MainLogo Logocheck={mainLogocheck} />
+      </NavLink>
+      <div>
+        <NavLink to="/board">
+          <CommunityComponent color={iconcolor} />
+        </NavLink>
+        <NavLink to="/music">
+          <PianoComponent color={iconcolor} />
+        </NavLink>
+      </div>
+      <div>
+        <BellComponent color={iconcolor} />
+        <HamburgerButtonComponent />
+      </div>
+    </HeaderStyled>
+  );
+};
