@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 
-
 export const  ViewBox = styled.div`
+    & > div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+    }
     padding: 15px 0 0 0;
     margin: 25px auto;
     width: 1750px;
@@ -12,6 +16,7 @@ export const  ViewBox = styled.div`
 
 export const SubjectBox = () => {
     const Subject = styled.div`
+
         font-size: 30px;
         margin: 15px 70px;
         background: #A6B8C4;
@@ -26,7 +31,7 @@ export const SubjectBox = () => {
 
     return (
         <Subject>
-            <SubContent>제목: </SubContent><SubContent>ChatGPT에게 어그로끄는 법을 물어보았다.</SubContent>
+            <SubContent>제목:</SubContent><SubContent>ChatGPT에게 어그로끄는 법을 물어보았다.</SubContent>
         </Subject>
     )
 
@@ -37,21 +42,25 @@ export const ContentBox = styled.div`
     font-size: 30px;
     line-height: 36px;
     font-weight: 400;
-    margin: 15px auto 0 auto;
+    margin: auto;
     background: #A6B8C4;
     width: 1610px;
     height: 680px;
+    padding: 15px;
+    box-sizing: border-box;
 `
 
-export const FileBox = () => {
+export const FileBox = ({children}) => {
 
     const FileSpan = styled.span`
+        margin-left: 70px;
         font-weight: 400;
-        font-size: 30px;
+        font-size: 20px;
         line-height: 36px;
     `
 
-    return (
-        <FileSpan></FileSpan>
+    return (<>
+        <FileSpan>파일: </FileSpan><FileSpan>{children} 다운로드 링크</FileSpan>
+    </> 
     )
 }
