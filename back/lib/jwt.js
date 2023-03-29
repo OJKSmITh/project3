@@ -1,46 +1,40 @@
 class JWT {
-  constructor({ crypto }) {
-    this.crypto = crypto;
-  }
 
-  sign(data, options = {}) {
-    const header = this.encode({ tpy: "JWT", alg: "HS256" }); //base64url
-    const payload = this.encode({ ...data, ...options }); //base64url
-    const signature = this.createSignature([header, payload]);
+    constructor({ crypto, SALT }) {
+        this.crypto = crypto
+        this.salt = SALT
+    }
+    createToken(payloadData) {
+        const header = this.encode({ tpy: "JWT", alg: "HS256"})
+        const payload = this.encode(payloadData)
+        const signature = this.createSignature([header, payload])
 
-    // return `${header}.${payload}.${signature}`
-    return [header, payload, signature].join(".");
-  }
-
-  // token:string
-  verify(token, salt) {
-    const [header, payload, signature] = token.split(".");
-    const newSignature = this.createSignature([header, payload], salt);
-    if (newSignature !== signature) {
-      throw new Error("토큰이 이상함...누가 변조함!");
+        return [header, payload, signature].join(".")
     }
 
-    return this.decode(payload);
-  }
+    encode(value) {
+        return Buffer.from(JSON.stringify(value)).toString("base64Url")
+    }
 
-  encode(obj) {
-    return Buffer.from(JSON.stringify(obj))
-      .toString("base64")
-      .replace(/[=]/g, "");
-  }
+    decode(encodedValue) {
+        return JSON.parse(Buffer.from(encodedValue, "base64Url").toString("utf-8"))
+    }
 
-  decode(base64) {
-    return JSON.parse(Buffer.from(base64, "base64").toString("utf-8"));
-  }
+    createSignature(sourceArr, salt = this.salt) {
+        const splitArr = sourceArr.join(".")
+        return this.crypto.createHmac("sha256", salt).update(splitArr).digest("base64Url")
+    }
 
-  createSignature(base64urls, salt = "web7722") {
-    // header.payload .join
-    const data = base64urls.join(".");
-    return this.crypto
-      .createHmac("sha256", salt)
-      .update(data)
-      .digest("base64")
-      .replace(/[=]/g, "");
-  }
+    verifyToken(token, salt=this.salt) {
+        const [header, payload, signature] = token.split(".")
+        const newSignature = this.createSignature([header, payload], salt)
+        if (newSignature !== signature) {
+            throw new Error("토큰값이 다릅니다")
+        }
+
+        return this.decode(payload)
+    }
 }
-module.exports = JWT;
+
+module.exports = JWT
+

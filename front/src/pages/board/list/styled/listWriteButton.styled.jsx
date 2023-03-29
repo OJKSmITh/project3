@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+
 
 const WriteButtonStyled = styled.div`
     width:70px;
@@ -12,11 +14,11 @@ const WriteButtonStyled = styled.div`
     position:absolute;
     left:1550px;
     bottom:60px;
-    
+    color:black;
 `
 
 export const ListWriteButton = () =>{
     return ( 
-        <WriteButtonStyled>글쓰기</WriteButtonStyled>
+        <NavLink to="/board/write"><WriteButtonStyled>글쓰기</WriteButtonStyled></NavLink>
     )
 }

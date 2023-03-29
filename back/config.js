@@ -1,4 +1,4 @@
-require("dotenv").config();
+const dotenv =require("dotenv").config();
 // const BadRequest = require("./exceptions/BadRequest");
 
 const config = {
@@ -17,9 +17,9 @@ const config = {
   redirect_port: process.env.REDIRECT_PORT || "3005",
   db: {
     development: {
+      database: process.env.DB_DATABASE || "",
       username: process.env.DB_USER || "",
       password: process.env.DB_PASSWORD || " ",
-      database: process.env.DB_DATABASE || "",
       port: process.env.DB_PORT || "",
       host: process.env.DB_HOST || "",
       dialect: "mysql",
