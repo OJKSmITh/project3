@@ -1,27 +1,30 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
+const ImageButtonStyled = styled.div`
+  width: 250px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: var(--grey-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
-const ImageButtonStyled = styled.form`
-    width:250px;
-    height:50px;
-    border-radius:50px;
-    background-color:var(--grey-color);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-left:20px;
-    overflow:hidden;
-    &:hover {
-        cursor:pointer;
-    }
-    & > input {
-        border:none;
-        background-color:var(--grey-color);
-        font-size:20px;
-        margin-left: 85px;
-    }
-`
+const Label = styled.label`
+  position: relative;
+  display: inline-block;
+  background-color: var(--grey-color);
+  color: var(--black-color);
+  border: none;
+  font-size:22px;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
 
 const Input = styled.input`
   position: absolute;
@@ -33,27 +36,22 @@ const Input = styled.input`
   cursor: pointer;
 `;
 
-const Button = styled.button`
-  background-color: var(--grey-color);
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size :25px;
-  cursor: pointer;
-`;
-
 export const ImageButton = () => {
-    const inputRef = useRef(null);
-  
-    const handleFileChange = (event) => {
-      const file = event.target.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
-    };
-  
-    return (
-      <ImageButtonStyled>
-        <Button>이미지 파일 업로드<Input type="file" ref={inputRef} onChange={handleFileChange} /></Button>
-      </ImageButtonStyled>
-    );
+  const inputRef = useRef(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
   };
+
+  return (
+    <ImageButtonStyled>
+      <Label>
+        이미지 파일 업로드
+        <Input type="file" ref={inputRef} onChange={handleFileChange} />
+      </Label>
+    </ImageButtonStyled>
+  );
+};

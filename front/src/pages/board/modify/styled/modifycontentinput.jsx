@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const inputWrap = styled.div`
+const InputWrap = styled.div`
     width:100%;
     height:600px;
     background-color: var(--blue-color);
@@ -24,8 +24,8 @@ const ModifyContentInputStyled = styled.input`
 
 export const ModifyContentInput = ({data}) =>{
     return ( 
-        <inputWrap className="test1">
+        <InputWrap>
             <ModifyContentInputStyled defaultValue={"데이터 넣을곳"}/>
-        </inputWrap>
+        </InputWrap>
     )
 }

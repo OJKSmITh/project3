@@ -9,6 +9,5 @@ export const ModifyContentWrapStyled = styled.div`
     overflow:hidden;
     display:flex;
     flex-direction:column;
-
 `
 
