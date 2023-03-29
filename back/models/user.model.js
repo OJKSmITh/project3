@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
                 userImg: {
                     type: Sequelize.TEXT(),
                     allowNull: false,
-                    defaultValue: `http://${host}:${port}/default-image.png`,
+                    // defaultValue: `http://${host}:${port}/default-image.png`,
                 },
                 provider: {
                     type: Sequelize.ENUM("local", "kakao"),

@@ -141,11 +141,11 @@ export const Upload = () => {
     return<>
         <UploadBox> 
             <UploadFrm>
-                <Input type="file" name="musicfilename"></Input>
+                <Input type="file" id="musicfilename"></Input>
                 <ChoiceBtn for="musicfilename">업로드</ChoiceBtn>
                 <button type='submit' style={{display: "none"}}></button>
 
-                <Input type="file" name="imagefilename"></Input>
+                <Input type="file" id="imagefilename"></Input>
                 <ChoiceBtn for="imagefilename">업로드</ChoiceBtn>
                 <button type='submit' style={{display: "none"}}></button>
             </UploadFrm>
