@@ -40,12 +40,12 @@ export const SignupForm = () => {
       </form>
       <form onSubmit={signupSubmit}>
         <Input type="hidden" name="userImg" id="inputImg" />
-        <Input placeholder="text1" />
+        <Input placeholder="text1" name="email"/>
+        <Input placeholder="text2" name="userpw" type="password"/>
         <Input placeholder="text2" />
-        <Input placeholder="text2" />
-        <Input placeholder="text3" />
-        <Input placeholder="text4" />
-        <Input placeholder="text5" />
+        <Input placeholder="text3" name="nickname" />
+        <Input placeholder="text4" name="phoneNumber" />
+        <Input placeholder="text5" name="introduce" />
         <Button color={"color1"}>가입하기</Button>
         <Button color={"color1"}>뒤로가기</Button>
       </form>

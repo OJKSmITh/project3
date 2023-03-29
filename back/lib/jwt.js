@@ -1,4 +1,5 @@
 class JWT {
+
     constructor({ crypto, SALT }) {
         this.crypto = crypto
         this.salt = SALT
@@ -36,3 +37,4 @@ class JWT {
 }
 
 module.exports = JWT
+

@@ -2,10 +2,10 @@ const dotenv =require("dotenv").config();
 // const BadRequest = require("./exceptions/BadRequest");
 
 const config = {
-//   exception: {
-//     BadRequest,
-//   },
-  SALT: process.env.SALT || 'web7722',
+  //   exception: {
+  //     BadRequest,
+  //   },
+  SALT: process.env.SALT || "web7722",
   mailer: {
     user: process.env.MAIL_USER || "",
     password: process.env.MAIL_USERPW || "",
@@ -13,8 +13,8 @@ const config = {
   host: process.env.HOST || "127.0.0.1",
   env: process.env.NODE_ENV || "development",
   port: process.env.PORT || "3001",
-  redirect_host: process.env.REDIRECT_HOST || 'localhost',
-  redirect_port: process.env.REDIRECT_PORT || '3005',
+  redirect_host: process.env.REDIRECT_HOST || "localhost",
+  redirect_port: process.env.REDIRECT_PORT || "3005",
   db: {
     development: {
       database: process.env.DB_DATABASE || "",
@@ -26,7 +26,7 @@ const config = {
       timezone: "Asia/Seoul",
       dialectOptions: {
         dataStrings: true,
-        typeCast:true,
+        typeCast: true,
       },
       define: { freezeTableName: true, timestamp: false },
     },

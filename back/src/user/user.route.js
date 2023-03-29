@@ -1,11 +1,13 @@
-const express = require('express')
-const router = express.Router()
-const upload = require("../../middleware/upload");
-// const controller = require() 컨트롤러
 
-router.get('/',(req,res)=>{
-    res.send('user')
-})
+const express = require("express");
+const router = express.Router();
+const { userController: controller } = require("./user.module");
+const upload = require("../../middleware/upload");
+
+
+
+router.post("/", (req, res, next) => controller.postSignup(req, res, next));
+
 
 
 
@@ -15,3 +17,4 @@ router.post("/single", upload.single("filename"), (req, res) => {
 });
 
 module.exports = router
+
