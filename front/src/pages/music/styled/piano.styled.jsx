@@ -17,6 +17,10 @@ export const Pianolayout = styled.div`
 
   & .white {
     background-color: white;
+    &:hover {
+      background-color: #d3b7d8;
+      color: #fff;
+    }
   }
 
   & .black {
@@ -28,6 +32,10 @@ export const Pianolayout = styled.div`
     z-index: 1;
     position: relative;
     color: #eee;
+    &:hover {
+      background-color: #ffc2c3;
+      color: #fff;
+    }
   }
 
   & > div {
@@ -35,6 +43,10 @@ export const Pianolayout = styled.div`
     justify-content: center;
     align-items: flex-end;
     font-size: 30px;
+  }
+
+  & .playing {
+    background: red;
   }
 `;
 
@@ -81,43 +93,60 @@ export const Piano = () => {
     switch (event.keyCode) {
       case 65: // A
         playSound("note1");
+        event.target.classList.add("playing");
         break;
       case 87: // W
         playSound("note2");
+        // console.log(event.keyCaode);
+        event.target.classList.add("playing");
         break;
       case 83: // S
         playSound("note3");
+        event.target.classList.add("playing");
         break;
       case 69: // E
         playSound("note4");
+        event.target.classList.add("playing");
         break;
       case 68: // D
         playSound("note5");
+        event.target.classList.add("playing");
         break;
       case 72: // H
         playSound("note6");
+        event.target.classList.add("playing");
         break;
       case 85: // U
         playSound("note7");
+        event.target.classList.add("playing");
         break;
       case 74: // J
         playSound("note8");
+        event.target.classList.add("playing");
         break;
       case 73: // I
         playSound("note9");
+        event.target.classList.add("playing");
         break;
       case 75: // K
         playSound("note10");
+        event.target.classList.add("playing");
         break;
       case 79: // O
         playSound("note11");
+        event.target.classList.add("playing");
         break;
       case 76: // L
         playSound("note12");
+        event.target.classList.add("playing");
         break;
       default:
         break;
     }
+  };
+
+  const onKeyUp = (event) => {
+    event.target.classList.remove("playing");
   };
 
   const playSound = (note) => {
@@ -138,6 +167,7 @@ export const Piano = () => {
           data-note="note1"
           onClick={() => playSound("note1")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           A
@@ -147,6 +177,7 @@ export const Piano = () => {
           data-note="note2"
           onClick={() => playSound("note2")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           W
@@ -156,6 +187,7 @@ export const Piano = () => {
           data-note="note3"
           onClick={() => playSound("note3")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           S
@@ -165,6 +197,7 @@ export const Piano = () => {
           data-note="note4"
           onClick={() => playSound("note4")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           E
@@ -174,6 +207,7 @@ export const Piano = () => {
           data-note="note5"
           onClick={() => playSound("note5")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           D
@@ -183,6 +217,7 @@ export const Piano = () => {
           data-note="note6"
           onClick={() => playSound("note6")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           H
@@ -192,6 +227,7 @@ export const Piano = () => {
           data-note="note7"
           onClick={() => playSound("note7")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           U
@@ -201,6 +237,7 @@ export const Piano = () => {
           data-note="note8"
           onClick={() => playSound("note8")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           J
@@ -210,6 +247,7 @@ export const Piano = () => {
           data-note="note9"
           onClick={() => playSound("note9")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           I
@@ -219,6 +257,7 @@ export const Piano = () => {
           data-note="note10"
           onClick={() => playSound("note10")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           K
@@ -228,6 +267,7 @@ export const Piano = () => {
           data-note="note11"
           onClick={() => playSound("note11")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           O
@@ -237,6 +277,7 @@ export const Piano = () => {
           data-note="note12"
           onClick={() => playSound("note12")}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           tabIndex="0"
         >
           L
