@@ -6,6 +6,7 @@ import {
   ButtonWrap,
   PianoForm,
   PianoMenu,
+  MusicBar,
 } from "./styled/index.jsx";
 import { Button } from "../../common/index.jsx";
 
@@ -13,6 +14,7 @@ export const Music = () => {
   return (
     <>
       <Wrap>
+        <MusicBar />
         <Musicform>
           <GPT></GPT>
           <PianoForm>
@@ -25,6 +27,7 @@ export const Music = () => {
             </Button>
           </ButtonWrap>
         </Musicform>
+        <MusicBar />
       </Wrap>
     </>
   );
