@@ -7,7 +7,7 @@ const upload = require("../../middleware/upload");
 
 
 router.post("/", (req, res, next) => controller.postSignup(req, res, next));
-
+router.post("/signup",(req,res,next)=>controller.postSignup(req,res,next))
 
 
 
