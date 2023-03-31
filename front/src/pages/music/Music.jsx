@@ -12,14 +12,14 @@ import { Button } from "../../common/index.jsx";
 import { useState } from "react";
 
 export const Music = () => {
-  const [pianoState, setPianoState] = useState();
+  const [pianoState, setPianoState] = useState("");
 
   return (
     <>
       <Wrap>
         <MusicBar />
         <Musicform>
-          <GPT></GPT>
+          <GPT pianoState={pianoState}></GPT>
           <PianoForm>
             <PianoMenu></PianoMenu>
             <Piano

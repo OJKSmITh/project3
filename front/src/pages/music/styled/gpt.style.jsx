@@ -38,7 +38,9 @@ export const GptText = styled.div`
   box-sizing: border-box;
 `;
 
-export const GPT = () => {
+export const GPT = (pianoState) => {
+  console.log("GPT ::::::::::::", pianoState);
+
   return (
     <>
       <GptLaylout>
