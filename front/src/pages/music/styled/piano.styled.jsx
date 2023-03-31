@@ -117,7 +117,8 @@ export const Piano = (pianoState, setPianoState) => {
   }, []);
 
   const onKeyDown = (event) => {
-    console.log(pianoState);
+    // console.log(pianoState);
+    // console.log(pianoState.setPianoState);
 
     event.preventDefault();
 
@@ -134,13 +135,10 @@ export const Piano = (pianoState, setPianoState) => {
       }
     };
 
-    console.log(findKeyElement());
-    console.log(findKeyElement().getAttribute("note"));
-    // const item = event.target.children;
-    // for (const text of item) {
-    //   const noteText = text.getAttribute("note");
-    //   // console.log("뽑히니?", noteText);
-    // }
+    const noteText = findKeyElement().getAttribute("note");
+    console.log(noteText);
+
+    pianoState.setPianoState(noteText);
 
     switch (event.keyCode) {
       case 65: // A
