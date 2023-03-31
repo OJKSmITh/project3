@@ -1,117 +1,67 @@
-module.exports = (sequelize, Sequelize) => {
-  class User extends Sequelize.Model {
-    static createTable() {
-
-        return this.init(
-            {
-                email: {
-                    type: Sequelize.STRING(30),
-                    validate: {
-                        isEmail: true,
-                    },
-                },
-                nickname: {
-                    type: Sequelize.STRING(16),
-                    allowNull: false,
-                    validate: {
-                        is: /^[A-Za-z가-힣0-9]{2,16}$/,
-                    },
-                },
-                userpw: {
-                    type: Sequelize.STRING(64),
-                    allowNull: false,
-                },
-                phoneNumber: {
-                    type: Sequelize.STRING(11),
-                    validate: {
-                        is: /^010[0-9]{8}$/,
-                    },
-                },
-                userImg: {
-                    type: Sequelize.TEXT(),
-                    allowNull: false,
-                    // defaultValue: `http://${host}:${port}/default-image.png`,
-                },
-                provider: {
-                    type: Sequelize.ENUM("local", "kakao"),
-                    allowNull: false,
-                    defaultValue: "local",
-                },
-                snsId: {
-                    type: Sequelize.STRING(30),
-                    allowNull: true,
-                },
-                introduce: {
-                    type: Sequelize.TEXT(),
-                    allowNull: true,
-                },
-                level: {
-                  type: Sequelize.ENUM("user", "admin"),
-                  allowNull: false,
-                  defaultValue: "user",
-                }
-
-            },
-          },
-          nickname: {
-            type: Sequelize.STRING(16),
-            allowNull: false,
-            validate: {
-              is: /^[A-Za-z가-힣0-9]{2,16}$/,
-            },
-          },
-          userpw: {
-            type: Sequelize.STRING(64),
-            allowNull: false,
-          },
-          phoneNumber: {
-            type: Sequelize.STRING(11),
-            validate: {
-              is: /^010[0-9]{8}$/,
-            },
-          },
-          userImg: {
-            type: Sequelize.TEXT(),
-            allowNull: false,
-            defaultValue: "default",
-          },
-          provider: {
-            type: Sequelize.ENUM("local", "kakao"),
-            allowNull: false,
-            defaultValue: "local",
-          },
-          snsId: {
-            type: Sequelize.STRING(30),
-            allowNull: true,
-          },
-          introduce: {
-            type: Sequelize.TEXT(),
-            allowNull: true,
-          },
-          level: {
-            type: Sequelize.ENUM("user", "admin"),
-            allowNull: false,
-            defaultValue: "user",
-          },
-        },
-        {
-          sequelize,
-          timestamp: true,
-        }
-      );
+const { DataTypes } = require('sequelize');
+module.exports = (sequelize) => {
+  const User = sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING(30),
+      primaryKey: true, // 'email' 컬럼을 기본 키로 사용
+      validate: {
+        isEmail: true,
+      },
+    },
+    nickname: {
+      type: DataTypes.STRING(16),
+      allowNull: false,
+      validate: {
+        is: /^[A-Za-z가-힣0-9]{2,16}$/,
+      },
+    },
+    userpw: {
+      type: DataTypes.STRING(64),
+      allowNull: false,
+    },
+    phoneNumber: {
+      type: DataTypes.STRING(11),
+      validate: {
+        is: /^010[0-9]{8}$/,
+      },
+    },
+    userImg: {
+      type: DataTypes.TEXT(),
+      allowNull: false,
+      // defaultValue: `http://${host}:${port}/default-image.png`,
+    },
+    provider: {
+      type: DataTypes.ENUM("local", "kakao"),
+      allowNull: false,
+      defaultValue: "local",
+    },
+    snsId: {
+      type: DataTypes.STRING(30),
+      allowNull: true,
+    },
+    introduce: {
+      type: DataTypes.TEXT(),
+      allowNull: true,
+    },
+    level: {
+      type: DataTypes.ENUM("user", "admin"),
+      allowNull: false,
+      defaultValue: "user",
     }
-    static associate(models) {
-      this.hasMany(models.Board, {
-        foreignKey: "nickname",
-      });
-      this.hasMany(models.Comment, {
-        foreignKey: "nickname",
-      });
-      this.belongsToMany(models.Board, {
-        through: "Liked",
-        foreignKey: "nickname",
-      });
-    }
-  }
-  User.createTable();
+  });
+
+  User.associate = (models) => {
+    User.hasMany(models.Board, {
+      foreignKey: "nickname",
+    });
+    User.hasMany(models.Comment, {
+      foreignKey: "nickname",
+    });
+    User.belongsToMany(models.Board, {
+      through: "Liked",
+      foreignKey: "nickname",
+    });
+  };
+  
+  return User;
 };

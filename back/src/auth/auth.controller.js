@@ -4,14 +4,15 @@ class AuthController {
   }
 
   async postLogin(req, res, next) {
-    console.log(req.body);
     try {
-      const { email, userpw } = req.body;
-      const token = await this.authService.token({ email, userpw });
-
+      const { useremail, userpw } = req.body;
+      const token = await this.authService.token({ useremail, userpw });
       // res.setHeader('Authorizaion', 'Bearer' + token)
+      if(typeof token === "object" ){
+        res.send(false)
+      }
       res.cookie("token", token);
-      res.send("message:success");
+      res.send(true);
     } catch (e) {
       next(e);
     }

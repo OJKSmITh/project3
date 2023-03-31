@@ -9,7 +9,7 @@ export const MainButtonComponent = () => {
 
   return (
     <>
-      {isLogin ? (
+      {!isLogin ? (
         <MainButton>
           <NavLink to="/signin">
             <div>로그인하여 음악 찾기</div>

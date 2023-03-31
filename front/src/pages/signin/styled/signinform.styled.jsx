@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import { Button, SocialLink, Input } from "../../../common";
+import { useDispatch, useSelector } from 'react-redux';
+import { useInput } from '../../../hooks/useInput';
+import axios from "axios"
+import {useNavigate} from "react-router-dom"
+
 
 export const Left = styled.form`
   position: absolute;
@@ -30,9 +35,26 @@ export const Span = styled.span`
   margin-bottom: 10px;
 `;
 
-export const SigninForm = () => {
+export const SigninForm = ({history}) => {
+  const dispatch = useDispatch()
+  const navigate =useNavigate()
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+    const useremail = e.target.useremail.value
+    const userpw = e.target.userpw.value
+    const result = await axios.post("http://localhost:3001/auth", {useremail, userpw}, {withCredentials:true})
+
+    if(result.data){
+      dispatch({type:"USER/LOGIN", payload:result.data})
+      navigate("/")
+    } else{
+      alert("아이디나 비밀번호가 일치하지 않습니다.")
+    }
+    
+  }
   return (
-    <Left>
+    <Left onSubmit={handleSubmit}>
       <h1>Sign In</h1>
       <SocialLink>
         <div>
@@ -52,8 +74,8 @@ export const SigninForm = () => {
         </div>
       </SocialLink>
       <Span>or use your account</Span>
-      <Input placeholder="text1" />
-      <Input placeholder="text2" />
+      <Input placeholder="text1"  name={"useremail"} type={"text"} id={"useremail"} />
+      <Input placeholder="text2"  name={"userpw"} type={"password"} id={"userpw"} />
       <Button color={"color1"}>Sign In</Button>
     </Left>
   );

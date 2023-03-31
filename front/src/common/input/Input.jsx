@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { InputStyled } from "./styled";
 
-export const Input = ({ placeholder, name, type }) => {
+export const Input = ({ placeholder, name, type, id }) => {
   const placeholderChip = {
     text1: "Email",
     text2: "Password",
@@ -15,6 +15,7 @@ export const Input = ({ placeholder, name, type }) => {
       placeholder={placeholderChip[placeholder]}
       name={name}
       type={type}
+      id={id}
     />
   );
 };
