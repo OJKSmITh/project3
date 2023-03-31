@@ -66,9 +66,11 @@ export const Pianolayout = styled.div`
   }
 `;
 
-export const Piano = () => {
+export const Piano = (pianoState, setPianoState) => {
   const [notes, setNotes] = useState({});
   const [loading, setLoading] = useState(true);
+
+  console.log(" :::::: ", pianoState, setPianoState);
 
   useEffect(() => {
     const loadNotes = async () => {
@@ -115,23 +117,31 @@ export const Piano = () => {
   }, []);
 
   const onKeyDown = (event) => {
+    console.log(pianoState);
+
     event.preventDefault();
+
     const findKeyElement = () => {
       for (const item of event.target.children) {
         if (item.innerHTML === event.key.toUpperCase()) {
+          item.classList.add("playing");
           // console.log("item:::", item);
-          const test = item.getAttribute("note");
-          console.log("note :::", test);
           // console.log("event.target:::", event.target);
           // console.log("event.key:::", event.key);
-          item.classList.add("playing");
-          // console.log(item);
+
           return item;
         }
       }
     };
 
-    // myRef.current.focus();
+    console.log(findKeyElement());
+    console.log(findKeyElement().getAttribute("note"));
+    // const item = event.target.children;
+    // for (const text of item) {
+    //   const noteText = text.getAttribute("note");
+    //   // console.log("뽑히니?", noteText);
+    // }
+
     switch (event.keyCode) {
       case 65: // A
         findKeyElement().click();
