@@ -64,7 +64,7 @@ export const SubjectBox = () => {
 
     return (
         <Subject>
-            <SubContent>제목: <SubInput placeholder='제목을 입력해주세요.'/></SubContent>
+            <SubContent>제목: <SubInput name="subject" placeholder='제목을 입력해주세요.'/></SubContent>
         </Subject>
     )
 
@@ -98,10 +98,9 @@ export const ContentBox = () => {
     return <>
         <label>
             <WriteArea>
-                <TextContent type="text" name="input" placeholder='내용을 입력해주세요.'></TextContent>
+                <TextContent type="text" name="write" placeholder='내용을 입력해주세요.'></TextContent>
             </WriteArea>
         </label>
-        
     </>
 }
 
@@ -142,11 +141,11 @@ export const Upload = () => {
         <UploadBox> 
             <UploadFrm>
                 <Input type="file" id="musicfilename"></Input>
-                <ChoiceBtn for="musicfilename">업로드</ChoiceBtn>
+                <ChoiceBtn htmlFor="musicfilename">업로드</ChoiceBtn>
                 <button type='submit' style={{display: "none"}}></button>
 
                 <Input type="file" id="imagefilename"></Input>
-                <ChoiceBtn for="imagefilename">업로드</ChoiceBtn>
+                <ChoiceBtn htmlFor="imagefilename">업로드</ChoiceBtn>
                 <button type='submit' style={{display: "none"}}></button>
             </UploadFrm>
         </UploadBox>        
