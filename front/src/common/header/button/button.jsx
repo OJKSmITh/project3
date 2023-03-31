@@ -22,6 +22,7 @@ export const MainButtonComponent = () => {
           </NavLink>
         </MainButton>
       )}
+
     </>
   );
 };

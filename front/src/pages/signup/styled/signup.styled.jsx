@@ -1,41 +1,45 @@
 // import styled from "styled-components";
 import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
-
+import {useDispatch} from 'react-redux'
 
 export const SignupForm = () => {
+  const dispatch = useDispatch()
+  console.log(dispatch({type:"USER/LOGIN", isLogin:true, data:{email:"...", nickname:""}}))
 
   const imgSubmit = async(e) => {
     e.preventDefault()
     const body = new FormData(e.target);
-    console.log(e.target)
     const response = await request.post("/user/single", body, {
       headers: { "Content-Type": "multipart/form-data" }
     });
-    const inputImg = document.querySelector("#inputImg");
-    console.log(inputImg)
+  
     const previewImg = document.querySelector("#previewImg");
-    inputImg.value = response.data.filename;
-    previewImg.src = `http://127.0.0.1:3000/${response.data.filename}`;
+    previewImg.src = `http://127.0.0.1:3001/${response.data.filename}`;
   }
 
-  const signupSubmit = (e) => {
+  const signupSubmit = async(e) => {
     e.preventDefault()
-    const inputImg = document.querySelector("#inputImg");
-    console.log(inputImg)
+    const previewImg = document.querySelector("#previewImg");
+    const inputImg = document.querySelector("#inputImg")
+    inputImg.value = previewImg.src.split("/")[3]
+    const {userImg, email, userpw, nickname, phoneNumber, introduce} = e.target
+    const body = {userImg:userImg.value, email:email.value, userpw:userpw.value, nickname:nickname.value, phoneNumber:phoneNumber.value, introduce:introduce.value}
+    const response = await request.post("/user/signup", body)
+    // console.log(response)
   }
 
   
 
   return (
     <>
-      <form onSubmit={imgSubmit} encType='multipart/form-data'>
+      <form onSubmit={imgSubmit}>
         <label htmlFor="image">
           <Profileimg>
             <img id="previewImg" src="/Users/mac/Desktop/KGA/ipk_board/back/uploads/default-image.png"/>
           </Profileimg>
         </label>
-        <input type="file" id="image" name="filename"/>        
+        <input type="file" id="image" name="filename" style={{display:"none"}}/>        
         <Button color={"color1"}>업로드</Button>
       </form>
       <form onSubmit={signupSubmit}>

@@ -3,16 +3,19 @@ const initialState = {
   error: null,
   isLogin: false,
   data: {
+
     useremail: "",
+    nickname: "",
+
   },
 };
 
 export const user = (state = initialState, action) => {
   switch (action.type) {
     case "USER/LOGIN":
-      return { ...state, isLogin: action.payload };
+      return { ...state, isLogin: action.payload, data:action.payload };
     case "USER/LOGOUT":
-      return { ...state, isLogin: false };
+      return { ...state, isLogin: false, data:{email:"", nickname:""}};
     default:
       return state;
   }

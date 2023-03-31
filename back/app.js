@@ -9,7 +9,7 @@ app.use(cors({
     origin: true,
     credentials: true
 }))
-
+app.use(express.static("./uploads"))
 app.use(express.json())
 app.use(cookieParser())
 

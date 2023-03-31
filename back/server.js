@@ -1,11 +1,9 @@
-
 const { port } = require('./config')
 const app = require('./app')
 const { sequelize } = require('./models')
 const {
   models: { User, Board, Comment, Liked, Note },
 } = sequelize
-
 
 app.listen(port, async () => {
   await sequelize.sync({ force: true });
