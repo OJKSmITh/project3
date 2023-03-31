@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const PianoForm = styled.div`
-  background: #a6b8c4;
-  width: 900px;
+  width: 1100px;
   height: 550px;
   display: flex;
   flex-wrap: wrap;
