@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
         }
         static associate(models) {
             this.belongsTo(models.Board, {
-                foreignKey: "boardidx",
+                foreignKey: "id",
             });
             this.belongsTo(models.User, {
                 foreignKey: "nickname",

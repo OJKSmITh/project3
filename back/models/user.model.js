@@ -3,10 +3,9 @@ module.exports = (sequelize) => {
   const User = sequelize.define('User', {
     email: {
       type: DataTypes.STRING(30),
-      primaryKey: true, // 'email' 컬럼을 기본 키로 사용
-      validate: {
-        isEmail: true,
-      },
+      // validate: {
+      //   isEmail: true,
+      // },
     },
     nickname: {
       type: DataTypes.STRING(16),
@@ -14,6 +13,8 @@ module.exports = (sequelize) => {
       validate: {
         is: /^[A-Za-z가-힣0-9]{2,16}$/,
       },
+      primaryKey:true,
+
     },
     userpw: {
       type: DataTypes.STRING(64),

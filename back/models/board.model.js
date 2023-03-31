@@ -1,3 +1,4 @@
+const { DataTypes } = require('sequelize');
 module.exports = (sequelize, Sequelize) => {
   class Board extends Sequelize.Model {
     static createTable() {
@@ -23,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ENUM("blind", "temp", "public"),
             defaultValue: "public",
             allowNull: false,
-          }
+          },
         },
         {
           sequelize,
@@ -36,12 +37,12 @@ module.exports = (sequelize, Sequelize) => {
         foreignKey: "nickname",
       });
       this.hasMany(models.Comment, {
-        foreignKey: "boardidx",
+        foreignKey: "id",
       });
-      this.belongsToMany(models.User, {
-        through: "Liked",
-        foreignKey: "boardidx",
-      });
+      // this.belongsToMany(models.User, {
+      //   through: "Liked",
+      //   foreignKey: "boardidx",
+      // });
     }
   }
   Board.createTable();
