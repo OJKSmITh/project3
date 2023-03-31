@@ -3,13 +3,14 @@ const initialState = {
   error: null,
   isLogin: false,
   data: {
-    email:"",
+
+    useremail: "",
     nickname: "",
+
   },
 };
 
 export const user = (state = initialState, action) => {
-  console.log(state);
   switch (action.type) {
     case "USER/LOGIN":
       return { ...state, isLogin: action.payload, data:action.payload };
