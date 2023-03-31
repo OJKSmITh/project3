@@ -8,7 +8,7 @@ const {
 app.listen(port, async () => {
   await sequelize.sync({ force: true });
   await User.create({
-    email: "admin",
+    email: "admin@h2.com",
     nickname : "test1",
     userpw: "d412387ddb361d72b8aebb81b565dc2a1de003b1a7b8717b6768b1d06e2fd639",
     phoneNumber: "01045454545",
