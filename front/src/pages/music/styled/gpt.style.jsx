@@ -8,6 +8,7 @@ export const GptLaylout = styled.div`
   display: flex;
   align-items: center;
   border-radius: 15px;
+  margin: 0 auto;
 
   & > div {
     background: #fff;
