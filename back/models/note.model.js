@@ -3,10 +3,34 @@ module.exports = (sequelize, Sequelize) => {
     static createTable() {
       return this.init(
         {
-            noteContent:{
-                type: Sequelize.STRING(64),
-                allowNul: false,
-            },
+          noteContent: {
+            type: Sequelize.TEXT(),
+            allowNull: false,
+          },
+          music: {
+            type: Sequelize.TEXT(),
+            allowNull: false,
+          },
+          referenceNumber: {
+            type: Sequelize.STRING(),
+            allowNull: false,
+          },
+          title: {
+            type: Sequelize.STRING(),
+            allowNull: false,
+          },
+          timeSignature: {
+            type: Sequelize.STRING(),
+            allowNull: false,
+          },
+          noteLength: {
+            type: Sequelize.STRING(),
+            allowNull: false,
+          },
+          key: {
+            type: Sequelize.STRING(),
+            allowNull: false,
+          },
         },
         {
           sequelize,
