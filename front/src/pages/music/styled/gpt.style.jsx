@@ -38,15 +38,15 @@ export const GptText = styled.div`
   box-sizing: border-box;
 `;
 
-export const GPT = (pianoState) => {
+export const GPT = ({ pianoState }) => {
   console.log("GPT ::::::::::::", pianoState);
-
+  // console.log(pianoState);
   return (
     <>
       <GptLaylout>
         <div>
           <div className="gptlogo"></div>
-          <GptText></GptText>
+          <GptText>{pianoState}</GptText>
         </div>
       </GptLaylout>
     </>

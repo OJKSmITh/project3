@@ -66,11 +66,13 @@ export const Pianolayout = styled.div`
   }
 `;
 
-export const Piano = (pianoState, setPianoState) => {
+export const Piano = ({ pianoState, setPianoState }) => {
+  // console.log(noteState, setNoteState);
   const [notes, setNotes] = useState({});
   const [loading, setLoading] = useState(true);
+  const [noteArray, setNoteArray] = useState([]);
 
-  console.log(" :::::: ", pianoState, setPianoState);
+  // console.log(" :::::: ", pianoState, setPianoState);
 
   useEffect(() => {
     const loadNotes = async () => {
@@ -117,28 +119,28 @@ export const Piano = (pianoState, setPianoState) => {
   }, []);
 
   const onKeyDown = (event) => {
-    // console.log(pianoState);
-    // console.log(pianoState.setPianoState);
-
-    event.preventDefault();
-
     const findKeyElement = () => {
       for (const item of event.target.children) {
         if (item.innerHTML === event.key.toUpperCase()) {
           item.classList.add("playing");
-          // console.log("item:::", item);
-          // console.log("event.target:::", event.target);
-          // console.log("event.key:::", event.key);
-
           return item;
         }
       }
     };
 
-    const noteText = findKeyElement().getAttribute("note");
-    console.log(noteText);
+    const keyElement = findKeyElement();
+    if (!keyElement) {
+      return;
+    }
 
-    pianoState.setPianoState(noteText);
+    const noteText = findKeyElement().getAttribute("note");
+    setNoteArray([...noteArray, noteText]);
+
+    if (noteArray.length === 5) {
+      console.log(noteArray);
+      setPianoState(noteArray);
+      setNoteArray([]);
+    }
 
     switch (event.keyCode) {
       case 65: // A
@@ -214,6 +216,7 @@ export const Piano = (pianoState, setPianoState) => {
         findKeyElement().click();
         break;
       default:
+        console.warn(`Unsupported key pressed: ${event.keyCode}`);
         break;
     }
   };
