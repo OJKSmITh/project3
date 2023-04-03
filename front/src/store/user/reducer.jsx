@@ -3,7 +3,6 @@ const initialState = {
   error: null,
   isLogin: false,
   data: {
-
     useremail: "",
     nickname: "",
 
