@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+
 export const  WriteBox = styled.div`
     & > div:nth-child(1) {
         display: flex;
@@ -106,6 +107,8 @@ export const ContentBox = () => {
 
 
 export const Upload = () => {
+    // const data = useSelector(state => state.user)
+    // console.log(data)
 
     const UploadFrm = styled.form`
     `

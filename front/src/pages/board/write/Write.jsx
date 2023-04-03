@@ -1,10 +1,10 @@
 import { WriteBox, SubjectBox, ContentBox, SubBtn, Upload,WriteSubmit } from './styled/write.styled'
 import request from '../../../lib/request'
-import { useSelector } from 'react-redux'
+
+import {useSelector} from "react-redux"
 
 export const Write = () => {
-    
-    const data = useSelector( state => state.user)
+    const data = useSelector(state => state.user)
     console.log(data)
 
     const writeSubmitHandle = async (e) => {

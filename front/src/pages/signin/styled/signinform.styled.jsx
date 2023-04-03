@@ -44,22 +44,36 @@ export const SigninForm = ({history}) => {
     const useremail = e.target.useremail.value
     const userpw = e.target.userpw.value
     const result = await axios.post("http://localhost:3001/auth", {useremail, userpw}, {withCredentials:true})
-
     if(result.data){
       dispatch({type:"USER/LOGIN", payload:result.data})
       navigate("/")
     } else{
       alert("아이디나 비밀번호가 일치하지 않습니다.")
     }
-    
   }
+
+  const kakaoLogin = async (e) => {
+    const REST_API_KEY = "5b3b08b057b1fcec026c0d76f74db766"
+    const REDIRECT_URI =  "http://localhost:3001/oauth/kakao"
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    window.location.href= KAKAO_AUTH_URL
+  }
+
+  const naverLogin = async () =>{
+    const NAVER_CLIENT_ID = "BZNALXP5ApoIpjWonih3"
+    const NAVER_CALLBACK_URL = "http://localhost:3001/oauth/naver"
+    const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_CALLBACK_URL}&state=50`
+    window.location.href = NAVER_AUTH_URL
+   
+  }
+
   return (
     <Left onSubmit={handleSubmit}>
       <h1>Sign In</h1>
       <SocialLink>
         <div>
-          <a href="#">
-            <i aria-hidden="true">F</i>
+          <a onClick={kakaoLogin}>
+            <i aria-hidden="true">K</i>
           </a>
         </div>
         <div>
@@ -68,7 +82,7 @@ export const SigninForm = ({history}) => {
           </a>
         </div>
         <div>
-          <a href="#">
+          <a onClick={naverLogin}>
             <i aria-hidden="true">N</i>
           </a>
         </div>

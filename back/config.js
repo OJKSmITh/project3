@@ -5,6 +5,13 @@ const config = {
   //   exception: {
   //     BadRequest,
   //   },
+  KAKAO_HOST: process.env.KAKAO_HOST,
+  KAKAO_REST_API_KEY:process.env.KAKAO_REST_API_KEY,
+  KAKAO_REDIRECT_URI:process.env.KAKAO_REDIRECT_URI,
+  KAKAO_CLIENT_SECRET:process.env.KAKAO_CLIENT_SECRET,
+  NAVER_HOST:process.env.NAVER_HOST,
+  NAVER_CLIENT_ID:process.env.NAVER_CLIENT_ID,
+  NAVER_CLIENT_SECRET: process.env.NAVER_CLIENT_SECRET,
   SALT: process.env.SALT || "web7722",
   mailer: {
     user: process.env.MAIL_USER || "",

@@ -26,6 +26,17 @@ class UserService {
       throw new Error(e);
     }
   }
+  
+  async kakaoSignup(userInfo){
+    try {
+      const hash = this.crypto.createHmac("sha256", "web7722").update(userInfo.userpw.toString()).digest("hex");
+      userInfo.userpw = hash
+      const user = await this.userRepository.addUser(userInfo)
+      return user
+    } catch (e) {
+      
+    }
+  }
 }
 
 module.exports = UserService;
