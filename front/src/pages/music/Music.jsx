@@ -10,10 +10,14 @@ import {
 } from "./styled/index.jsx";
 import { Button } from "../../common/index.jsx";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export const Music = () => {
   const [pianoState, setPianoState] = useState("");
 
+  useEffect(() => {
+    console.log("=============", pianoState);
+  }, [pianoState]);
   return (
     <>
       <Wrap>
