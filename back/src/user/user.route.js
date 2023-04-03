@@ -12,7 +12,6 @@ router.post("/signup",(req,res,next)=>controller.postSignup(req,res,next))
 
 
 router.post("/single", upload.single("filename"), (req, res) => {
-    console.log(req.file)
     res.send(req.file);
 });
 

@@ -1,4 +1,4 @@
-const dotenv =require("dotenv").config();
+require("dotenv").config();
 // const BadRequest = require("./exceptions/BadRequest");
 
 const config = {

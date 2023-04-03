@@ -5,8 +5,7 @@ class UserController {
 
   async postSignup(req, res, next) {
     try {
-      const { email, userpw, nickname } = req.body;
-      const user = await this.userService.signup({ email, userpw, nickname });
+      const user = await this.userService.signup(req.body);
       res.status(201).json(user);
     } catch (e) {
       next(e);
