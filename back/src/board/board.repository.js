@@ -1,5 +1,5 @@
 class BoardRepository {
-    constructor({ sequelize, Board, Temp, History, Hashtag, Comment, User, Hash, Liked, PointUp }) {
+    constructor({ sequelize, Board, Comment, User, Liked }) {
         this.sequelize = sequelize;
         this.Board = Board;
         this.Comment = Comment;
@@ -7,7 +7,10 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-
+    async createBoard(payload) {
+        const test = await this.Board.create(payload, {raw:true})
+        console.log(test)
+    }
 }
 
 module.exports = BoardRepository;

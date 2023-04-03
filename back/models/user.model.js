@@ -1,3 +1,4 @@
+const { host, port } = require('../config')
 
 const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
@@ -23,14 +24,14 @@ module.exports = (sequelize) => {
     },
     phoneNumber: {
       type: DataTypes.STRING(11),
-      validate: {
-        is: /^010[0-9]{8}$/,
-      },
+      // validate: {
+      //   is: /^010[0-9]{8}$/,
+      // },
     },
     userImg: {
       type: DataTypes.TEXT(),
       allowNull: false,
-      defaultValue: `http://127.0.0.1:3001/default-image.png`,
+      defaultValue: `http://${host}:${port}/default-image.png`,
     },
     provider: {
       type: DataTypes.ENUM("local", "kakao"),
