@@ -18,9 +18,8 @@ class AuthService {
 
       if (!user) throw "아이디와 패스워드가 일치하지 않습니다";
 
-      const token = hash
+      const token = hash;
       return token;
-
     } catch (e) {
       return new Error(e);
     }
