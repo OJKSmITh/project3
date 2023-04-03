@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
 import { MainButton } from "./styled";
 
 export const MainButtonComponent = () => {

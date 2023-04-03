@@ -5,7 +5,7 @@ class UserRepository {
 
   async addUser(payload) {
     try {
-      const user = await this.User.create(payload, { raw: true });
+      const user = (await this.User.create(payload)).get({plain:true});
       return user;
     } catch (e) {
       throw new Error(e);
