@@ -6,6 +6,10 @@ class BoardService {
         this.jwt = jwt;
     }
 
+    async write(data) {
+        await this.boardRepository.createBoard(data)
+    }
+
 }
 
 module.exports = BoardService;
