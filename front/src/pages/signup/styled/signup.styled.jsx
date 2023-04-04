@@ -1,10 +1,14 @@
 // import styled from "styled-components";
 import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
-import {useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux';
 import { BEhost, BEport } from "../../../config";
+import { ModalChang } from './modal.styled';
+import { useState } from 'react';
+
 
 export const SignupForm = () => {
+  const [email, setEmail] = useState('')
 
   const imgSubmit = async(e) => {
     e.preventDefault()
@@ -30,8 +34,13 @@ export const SignupForm = () => {
     const response = await request.post("/user/signup", body)
     console.log(response)
   }
-
   
+  const handleInputChange =(e) =>{
+    setEmail(e.target.value)
+
+  }
+
+
 
   return (
     <>
@@ -46,9 +55,10 @@ export const SignupForm = () => {
       </form>
       <form onSubmit={signupSubmit}>
         <Input type="hidden" name="userImg" id="inputImg" />
-        <Input placeholder="text1" name="email"/>
+        <Input placeholder="text1" name="email" onChange={handleInputChange}/>
+        <ModalChang props={email}></ModalChang>        
         <Input placeholder="text2" name="userpw" type="password"/>
-        <Input placeholder="text2" />
+        <Input placeholder="text2" type="password"/>
         <Input placeholder="text3" name="nickname" />
         <Input placeholder="text4" name="phoneNumber" />
         <Input placeholder="text5" name="introduce" />
