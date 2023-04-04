@@ -15,7 +15,7 @@ export const Header = () =>{
       <HeaderStyled color={headercolor}>
             <NavLink to="/"><MainLogo Logocheck={mainLogocheck}/></NavLink>
             <div>
-                <NavLink to="/board/list"><CommunityComponent color={iconcolor}/></NavLink>
+                <NavLink to="/community"><CommunityComponent color={iconcolor}/></NavLink>
                 <NavLink to="/music"><PianoComponent color={iconcolor}/></NavLink>
             </div>
             <div>

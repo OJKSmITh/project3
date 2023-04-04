@@ -6,7 +6,16 @@ export const ContentWrap = styled.div`
     flex-direction:column;
     align-items:center;
     width:1500px;
-    height:680px;
+    min-height:680px;
+    height: 77%;
     margin: 20px auto;
-    padding-top: 40px;
+    padding: 40px 0 20px 0;
+
+    height: 460px;
+    overflow: auto;
+    -ms-overflow-style: none;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `

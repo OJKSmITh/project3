@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
+
 import {useDispatch, useSelector} from 'react-redux';
 import { BEhost, BEport } from "../../../config";
 import { ModalChang } from './modal.styled';
@@ -23,7 +24,7 @@ export const SignupForm = () => {
     console.log('res',response)
   
     const previewImg = document.querySelector("#previewImg");
-    previewImg.src = `http://${BEhost}:${BEport}/${response.data.filename}`;
+    // previewImg.src = `http://${BEhost}:${BEport}/${response.data.filename}`;
   }
 
   const signupSubmit = async(e) => {

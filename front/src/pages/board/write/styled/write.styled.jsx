@@ -99,7 +99,7 @@ export const ContentBox = () => {
     return <>
         <label>
             <WriteArea>
-                <TextContent type="text" name="write" placeholder='내용을 입력해주세요.'></TextContent>
+                <TextContent type="text" name="content" placeholder='내용을 입력해주세요.'></TextContent>
             </WriteArea>
         </label>
     </>

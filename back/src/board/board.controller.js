@@ -3,11 +3,18 @@ class BoardController {
         this.boardService = boardService;
     }
 
+    async getList(req,res,next) {
+        try{
+            const list = await this.boardService.list()
+            res.json(list)
+        }catch(e){
+
+        }
+    }
+
     async postBoard(req,res,next) {
         try{
             const body = req.body
-            console.log(body)
-            body.nickname = "testman"
             await this.boardService.write(body)
             res.send('success')
         }catch(e){
