@@ -6,3 +6,4 @@ export * from "./buttonwrap.styled";
 export * from "./pianoform.styled";
 export * from "./pianomenu.styled";
 export * from "./MusicBar.styled";
+export * from "./abc.styled";

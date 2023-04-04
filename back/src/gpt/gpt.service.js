@@ -7,15 +7,16 @@ class GptService {
     this.utils = utils;
   }
 
-  async API({ noteContent }) {
-    // console.log(noteContent);
+  async API({ pianoState }) {
+    console.log("pianoState :::::::::", pianoState);
     try {
       const { Configuration, OpenAIApi } = require("openai");
-      //   console.log(GPT_API_KEY);
       const configiration = new Configuration({
         organization: "org-oqXxpiEYAU0duJAPh5ckxVEv",
         apiKey: GPT_API_KEY,
       });
+
+      const noteContent = pianoState.join("");
 
       const openai = new OpenAIApi(configiration);
 
@@ -27,7 +28,7 @@ class GptService {
       });
 
       const str = response.data.choices[0].text;
-      //   console.log("GPT API 가 주는 데이터", str);
+      console.log("GPT API 가 주는 데이터", str);
 
       const noteContentData = this.utils.parseABC(str);
 
@@ -40,6 +41,7 @@ class GptService {
         key: "",
       };
       const noteData = Object.assign({}, defaultNoteData, noteContentData, {
+        pianoState,
         noteContent,
       });
 
@@ -57,7 +59,7 @@ class GptService {
         },
       });
 
-      //   console.log("가공데이터:::::::::", Note);
+      console.log("가공데이터:::::::::", Note);
       return Note;
     } catch (e) {
       console.error("Failed to process note content:", e);

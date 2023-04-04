@@ -137,7 +137,7 @@ export const Piano = ({ pianoState, setPianoState }) => {
     setNoteArray([...noteArray, noteText]);
 
     if (noteArray.length === 5) {
-      console.log(noteArray);
+      // console.log(noteArray);
       setPianoState(noteArray);
       setNoteArray([]);
     }
