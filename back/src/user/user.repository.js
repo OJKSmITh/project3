@@ -11,6 +11,14 @@ class UserRepository {
       throw new Error(e);
     }
   }
+  async snsAddUser(payload){
+    try {
+      const user = await this.User.findOrCreate({where:payload})
+      return user
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
 }
 
 module.exports = UserRepository;
