@@ -44,6 +44,7 @@ export const SigninForm = ({history}) => {
     const useremail = e.target.useremail.value
     const userpw = e.target.userpw.value
     const result = await axios.post("http://localhost:3001/auth", {useremail, userpw}, {withCredentials:true})
+    console.log(result)
     if(result.data){
       dispatch({type:"USER/LOGIN", payload:result.data})
       navigate("/")

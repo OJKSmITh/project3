@@ -1,13 +1,15 @@
-// import styled from "styled-components";
+import styled from "styled-components";
 import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { BEhost, BEport } from "../../../config";
 import { ModalChang } from './modal.styled';
 import { useState } from 'react';
 
 
 export const SignupForm = () => {
+  const dispatch = useDispatch()
+  const {authCheck} = useSelector(state => state.email)
   const [email, setEmail] = useState('')
 
   const imgSubmit = async(e) => {
@@ -37,9 +39,22 @@ export const SignupForm = () => {
   
   const handleInputChange =(e) =>{
     setEmail(e.target.value)
-
   }
 
+  const CheckDiv = styled.div`
+    width:80px;
+    height:30px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`
 
 
   return (
@@ -56,7 +71,11 @@ export const SignupForm = () => {
       <form onSubmit={signupSubmit}>
         <Input type="hidden" name="userImg" id="inputImg" />
         <Input placeholder="text1" name="email" onChange={handleInputChange}/>
-        <ModalChang props={email}></ModalChang>        
+        {authCheck
+        ?<CheckDiv>인증완료</CheckDiv>
+        :<ModalChang props={email}></ModalChang>        
+        
+        }
         <Input placeholder="text2" name="userpw" type="password"/>
         <Input placeholder="text2" type="password"/>
         <Input placeholder="text3" name="nickname" />

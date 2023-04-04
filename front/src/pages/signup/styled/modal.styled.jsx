@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ModalForm = styled.form`
     display:flex;
@@ -25,9 +26,13 @@ const ModalDiv = styled.div`
 `
 
 export const ModalChang = (props) =>{
+    const dispatch = useDispatch()
+    const {authCheck} = useSelector(state => state.email)
     const [modalIsOpen, setIsOpen] = useState(false)
     const [randomNum, setNum] = useState("")
     const [emailAuth, setemail] = useState("")
+    
+
     const customStyles = {
         content: {
             top: '50%',

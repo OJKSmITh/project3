@@ -61,6 +61,7 @@ class AuthController {
       })
       const prevSession = await result
       if(number === prevSession.random){
+        res.clearCookie("sessionId")
         res.status(200).send(true)
       } else{
         throw new Error(e)

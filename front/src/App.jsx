@@ -10,6 +10,7 @@ const App = ()=> {
   useEffect(()=>{
     if (document.cookie.split("=")[0] === "token"){
       const token = document.cookie.split("=")[1]
+      console.log(token)
       ;(async () =>{
         const response = await axios.post("http://localhost:3001/auth/sns", {token})
         console.log(response)

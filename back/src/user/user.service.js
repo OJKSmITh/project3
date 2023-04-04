@@ -31,7 +31,7 @@ class UserService {
     try {
       const hash = this.crypto.createHmac("sha256", "web7722").update(userInfo.userpw.toString()).digest("hex");
       userInfo.userpw = hash
-      const user = await this.userRepository.addUser(userInfo)
+      const user = await this.userRepository.snsAddUser(userInfo)
     } catch (e) {
       throw new Error(e)
     }
@@ -45,7 +45,7 @@ class UserService {
       const hash = this.crypto.createHmac("sha256", "web7722").update(userInfo.userpw.toString()).digest("hex")
       userInfo.userpw = hash
       console.log(userInfo)
-      const user = await this.userRepository.addUser(userInfo)
+      const user = await this.userRepository.snsAddUser(userInfo)
       return userInfo
     } catch (e) {
       throw new Error(e)
@@ -66,7 +66,7 @@ class UserService {
               userImg: picture,
               level: "user", 
       }
-      const user = await this.userRepository.addUser(googleInfo)
+      const user = await this.userRepository.snsAddUser(googleInfo)
       return googleInfo
     } catch (e) {
      throw new Error(e) 
