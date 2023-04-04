@@ -17,13 +17,13 @@ const ContentWordPart = styled.div`
     font-size:35px;
 `
 
-export const ContentWordWrap = ({word})=>{
+export const ContentWordWrap = ({subject, content, date, nickname})=>{
     return (
         <ContentWordBox>
-            <ContentWordPart>{word}</ContentWordPart>
-            <ContentWordPart>{word}</ContentWordPart>
-            <ContentWordPart>{word}</ContentWordPart>
-            <ContentWordPart>{word}</ContentWordPart>
+            <ContentWordPart>{subject}</ContentWordPart>
+            <ContentWordPart>{content}</ContentWordPart>
+            <ContentWordPart>{date}</ContentWordPart>
+            <ContentWordPart>{nickname}</ContentWordPart>
         </ContentWordBox>
     )
 }

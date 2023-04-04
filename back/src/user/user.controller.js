@@ -68,9 +68,9 @@ class UserController {
   async naverSignin(req, res, next){
     try {
       const {code, state} = req.query
-      const HOST = ""
-      const NAVER_CLIENT_ID = ""
-      const NAVER_CLIENT_SECRET = ""
+      const HOST = process.env.NAVER_HOST || ""
+      const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID || ""
+      const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET || ""
       const NAVER_TOKEN_URI = `${HOST}&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}`
       const response = await this.axios.post(NAVER_TOKEN_URI) 
       // console.log(response)
