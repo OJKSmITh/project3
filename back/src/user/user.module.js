@@ -4,7 +4,7 @@ const {
   },
 } = require("../../models");
 
-const config = require("dotenv").config
+const dotenv = require("dotenv").config()
 const DateFormat = require("../../lib/dateformat");
 const UserRepository = require("./user.repository");
 const UserService = require("./user.service");
@@ -17,7 +17,7 @@ const axios = require("axios")
 
 const userRepository = new UserRepository({ User });
 const userService = new UserService({ userRepository, jwt, DateFormat });
-const userController = new UserController({ userService, qs, axios });
+const userController = new UserController({ userService, qs, axios, dotenv });
 
 module.exports = {
   userController,

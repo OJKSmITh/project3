@@ -17,6 +17,18 @@ class AuthController {
       next(e);
     }
   }
+
+  async postSnsLogin(req,res,next) {
+    try {
+      const {token} = req.body
+      console.log(token)
+      const response = await this.authService.Snscheck({token}) 
+      res.cookie("token", token)
+      res.status(200).json(response)
+    } catch (e) {
+      next(e)
+    }
+  }
 }
 
 module.exports = AuthController;

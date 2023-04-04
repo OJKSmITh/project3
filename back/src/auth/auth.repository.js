@@ -7,12 +7,27 @@ class AuthRepository {
     try {
       const user = await this.User.findOne({
         raw: true,
-        // attributes: { exclude: ["userpw"] },
+        attributes: { exclude: ["userpw"] },
         where: {
           email:useremail,
           userpw,
         },
       });
+      return user;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+  async getUserSnsByInfo({ hash }) {
+    try {
+      const user = await this.User.findOne({
+        raw: true,
+        attributes: { exclude: ["userpw"] },
+        where: {
+          userpw:hash,
+        },
+      });
+      console.log(user)
       return user;
     } catch (e) {
       throw new Error(e);

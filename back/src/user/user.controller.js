@@ -1,8 +1,9 @@
 class UserController {
-  constructor({ userService, qs, axios }) {
+  constructor({ userService, qs, axios, dotenv }) {
     this.userService = userService;
     this.qs = qs
     this.axios = axios
+    this.dotenv = dotenv
   }
 
   async postSignup(req, res, next) {
@@ -17,10 +18,10 @@ class UserController {
   async kakaoSignin(req, res, next){
     try{
       const {code} = req.query
-      const kakaoHost = ``
-      const REST_API_KEY = ""
-      const REDIRECT_URI =  ""
-      const CLIENT_SECRET = ""
+      const kakaoHost = process.env.KAKAO_HOST
+      const REST_API_KEY = process.env.KAKAO_REST_API_KEY
+      const REDIRECT_URI =  process.env.KAAKO_REDIRECT_URI
+      const CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET
       const headers ={
         "Content-type": "application/x-222-form-urlencoded;charset=utf-8"
       }
@@ -41,37 +42,32 @@ class UserController {
           Authorization:`Bearer ${access_token}`
         }
       })
+      console.log(data)
       const userInfo = {
-        useremail: data.kakao_account.email,
+        email: data.kakao_account.email,
         nickname: data.kakao_account.profile.nickname,
         userpw: data.id,
-        phonenumber: "01000000000",
+        phoneNumber: "01000000000",
         userImg: data.properties.profile_image,
         level:"user"
       }
-      const {userpw} = await this.userService.kakaoSignup(userInfo)
-      const token = userpw
+      const response2 = await this.userService.kakaoSignup(userInfo)
+      const token = data.id
       res.cookie("token", token)
-      res.redirect(`http://localhost:3000/welcome`)
+      res.redirect(`http://localhost:3000`)
     } catch(e) {
       next(e)
     }
   }
 
-  async kakaoCheck(req,res,next){
-    try {
-      console.log(req.body ,"aaaaaaaaaaaaaaaa")
-    } catch (e) {
-      
-    }
-  }
   async naverSignin(req, res, next){
     try {
       const {code, state} = req.query
-      const HOST = ""
-      const NAVER_CLIENT_ID = ""
-      const NAVER_CLIENT_SECRET = ""
+      const HOST = process.env.NAVER_HOST
+      const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID
+      const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET
       const NAVER_TOKEN_URI = `${HOST}&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}`
+      const NAVER_CALL_BACK="http://localhost:3001/oauth/naver"
       const response = await this.axios.post(NAVER_TOKEN_URI) 
       // console.log(response)
       const headers = {
@@ -81,7 +77,52 @@ class UserController {
       }
       const naverInfoUrl = `https://openapi.naver.com/v1/nid/me`
       const user = await this.axios.get(naverInfoUrl, {headers})
-      console.log(user)
+      const userInfo = {
+        email: user.data.response.email,
+        nickname: user.data.response.nickname,
+        userpw: user.data.response.nickname,
+        phonenumber: user.data.response.mobile_e164,
+        userImg: user.data.response.profile_image,
+        level:"user"
+      }
+      const response2 = await this.userService.naverSignup(userInfo)
+      res.cookie("token", response2.nickname)
+      res.redirect(`http://localhost:3000`)
+    } catch (e) {
+      next(e)
+    }
+  }
+
+  async googleSignin(req, res, next){
+    try {
+      const {code} = req.query
+      const GOOGLE_TOKEN_URI = `https://oauth2.googleapis.com/token`
+      const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+      const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+      const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI
+      const GOOGLE_GRANT_TYPE = "authorization_code"
+      const header = {
+        'Content-Type' : 'application/json'
+      }
+      const data1 = {
+        client_id: GOOGLE_CLIENT_ID,
+        client_secret: GOOGLE_CLIENT_SECRET,
+        code: code,
+        redirect_uri: GOOGLE_REDIRECT_URI,
+        grant_type: GOOGLE_GRANT_TYPE
+      }
+      const response = await this.axios.post(GOOGLE_TOKEN_URI, data1, {header})
+      const {access_token} = response.data
+      const googleInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo"
+      const headers = {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+      const {data} = await this.axios.get(googleInfoUrl, {headers})
+      const response2 = await this.userService.googleSignup(data)
+      res.cookie("token", response2.nickname)
+      res.redirect(`http://localhost:3000`)
     } catch (e) {
       next(e)
     }

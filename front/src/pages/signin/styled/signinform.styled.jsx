@@ -60,11 +60,18 @@ export const SigninForm = ({history}) => {
   }
 
   const naverLogin = async () =>{
-    const NAVER_CLIENT_ID = "BZNALXP5ApoIpjWonih3"
+    const NAVER_CLIENT_ID = "em49bNLauiPn0rU9S53Z"
     const NAVER_CALLBACK_URL = "http://localhost:3001/oauth/naver"
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_CALLBACK_URL}&state=50`
     window.location.href = NAVER_AUTH_URL
    
+  }
+
+  const googleLogin = async () => {
+    const GOOGLE_CLIENT_ID = "888046920176-b3dfcncj4c06lti1h3o6cpt7davrp150.apps.googleusercontent.com"
+    const GOOGLE_REDIRECT_URI = "http://localhost:3001/oauth/google"
+    const GOOGLE_AUTH_URL= `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile openid`
+    window.location.href = GOOGLE_AUTH_URL
   }
 
   return (
@@ -77,7 +84,7 @@ export const SigninForm = ({history}) => {
           </a>
         </div>
         <div>
-          <a href="#">
+          <a onClick={googleLogin}>
             <i aria-hidden="true">G</i>
           </a>
         </div>
