@@ -53,30 +53,56 @@ export const ModalChang = (props) =>{
     }
   
     const afterOpenModal = async () =>{
-        const result = await axios.post("http://localhost:3001/auth/mail", {email:props} ,{withCredentials:true})
+        try {
+            const result = await axios.post("http://localhost:3001/auth/mail", {email:props} ,{withCredentials:true})
+        } catch (e) {
+            alert("아이디가 중복됩니다")
+            setIsOpen(false)
+        }
     }
   
     const closeModal= () =>{
         setIsOpen(false)
     }
 
+    const afterModalClose = () =>{
+    }
+
     const numberCheck = async (e) =>{
+        console.log(e)
         e.preventDefault()
         const cookies = document.cookie.split("=")
         const sessionId = cookies[1]
         const result =await axios.post("http://localhost:3001/auth/number", {number:randomNum, sessionId},{withCredentials:true})
-        console.log(result)
+        dispatch({type:"EMAIL/TRUE"})
     }
 
     const numberValue = (e) =>{
         setNum(e.target.value)
     }
+
+    const CheckDiv2 = styled.div`
+    width:80px;
+    height:30px;
+    background-color: #d9d9d9;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`
+
     return (
         <>
-            <div onClick={openModal} className="modalparent">인증</div>
+            <CheckDiv2 onClick={openModal} className="modalparent">인증</CheckDiv2>
             <Modal
                 isOpen={modalIsOpen}
                 onAfterOpen={afterOpenModal}
+                onAfterClose={afterModalClose}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
@@ -85,8 +111,11 @@ export const ModalChang = (props) =>{
                 <ModalForm onSubmit={numberCheck}>
                 <ModalInput placeholder='인증번호를 넣어주세요' onChange={numberValue}/>
                 <ModalDiv>
-                    <ModalButton type='submit'>완료</ModalButton>
-                    <ModalButton onClick={closeModal}>종료</ModalButton>
+                    { authCheck 
+                    ?<ModalButton onClick={closeModal}>종료</ModalButton>
+                    :<ModalButton type='submit'>완료</ModalButton>
+                    }
+                    
                 </ModalDiv>
 
                 </ModalForm>

@@ -33,6 +33,19 @@ class AuthRepository {
       throw new Error(e);
     }
   }
+  async getRepetition({email}){
+    try {
+      const user = await this.User.findOne({
+        raw:true,
+        where: {
+          email,
+        }
+      })
+      return user
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
 }
 
 module.exports = AuthRepository;

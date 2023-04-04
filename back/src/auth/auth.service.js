@@ -43,6 +43,15 @@ class AuthService {
      return new Error(e) 
     }
   }
+
+  async repetition(email){
+    try {
+      const response = await this.authRepository.getRepetition(email)
+      return response
+    } catch (e) {
+      return new Error(e)
+    }
+  }
 }
 
 module.exports = AuthService;

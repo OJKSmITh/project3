@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { BEhost, BEport } from "../../../config";
 import { ModalChang } from './modal.styled';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 export const SignupForm = () => {
@@ -34,11 +35,15 @@ export const SignupForm = () => {
     const {userImg, email, userpw, nickname, phoneNumber, introduce} = e.target
     const body = {userImg:userImg.value, email:email.value, userpw:userpw.value, nickname:nickname.value, phoneNumber:phoneNumber.value, introduce:introduce.value}
     const response = await request.post("/user/signup", body)
-    console.log(response)
+    window.location.href="http://localhost:3000/signin"
   }
   
   const handleInputChange =(e) =>{
     setEmail(e.target.value)
+  }
+
+  const emailChange =() =>{
+    dispatch({type:'EMAIL/FALSE'})
   }
 
   const CheckDiv = styled.div`
@@ -55,7 +60,6 @@ export const SignupForm = () => {
     justify-content:center;
     align-items:center;
 `
-
 
   return (
     <>
@@ -81,8 +85,8 @@ export const SignupForm = () => {
         <Input placeholder="text3" name="nickname" />
         <Input placeholder="text4" name="phoneNumber" />
         <Input placeholder="text5" name="introduce" />
-        <Button color={"color1"}>가입하기</Button>
-        <Button color={"color1"}>뒤로가기</Button>
+        <Button color={"color1"} onClick={emailChange}>가입하기</Button>
+        <NavLink to="/"><Button color={"color1"} onClick={emailChange}>뒤로가기</Button></NavLink>
       </form>
     </>
   );
