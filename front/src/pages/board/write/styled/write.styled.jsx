@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+
 export const  WriteBox = styled.div`
     & > div:nth-child(1) {
         display: flex;
@@ -98,7 +99,7 @@ export const ContentBox = () => {
     return <>
         <label>
             <WriteArea>
-                <TextContent type="text" name="write" placeholder='내용을 입력해주세요.'></TextContent>
+                <TextContent type="text" name="content" placeholder='내용을 입력해주세요.'></TextContent>
             </WriteArea>
         </label>
     </>
@@ -106,6 +107,8 @@ export const ContentBox = () => {
 
 
 export const Upload = () => {
+    // const data = useSelector(state => state.user)
+    // console.log(data)
 
     const UploadFrm = styled.form`
     `
