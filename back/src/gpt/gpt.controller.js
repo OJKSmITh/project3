@@ -5,8 +5,10 @@ class GptController {
 
   async postText(req, res, next) {
     try {
-      const { noteContent } = req.body;
-      const response = await this.gptService.API({ noteContent });
+      console.log(req.body);
+      const { pianoState } = req.body;
+      const response = await this.gptService.API({ pianoState });
+      // console.log("controller :::", response);
       res.json(response);
     } catch (e) {
       next(e);

@@ -1,35 +1,76 @@
+const dotenv = require("dotenv").config({ path: "../../.env" });
+const GPT_API_KEY = process.env.GPT_APIKEY;
+const fs = require("fs");
+const { createWriteStream } = require("fs");
+
 class GptService {
-  constructor({ gptRepository }) {
+  constructor({ gptRepository, utils }) {
     this.gptRepository = gptRepository;
+    this.utils = utils;
   }
 
-  async API() {
+  async API({ pianoState }) {
+    console.log("pianoState :::::::::", pianoState);
     try {
       const { Configuration, OpenAIApi } = require("openai");
-
       const configiration = new Configuration({
         organization: "org-oqXxpiEYAU0duJAPh5ckxVEv",
-        apiKey: "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",
+        apiKey: GPT_API_KEY,
       });
+
+      const noteContent = pianoState.join("");
 
       const openai = new OpenAIApi(configiration);
 
       const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `옛날 바로크 시대 음악처럼 멜로디를 만들어주는데 다음과 같은 "A-C-B#-D" 순으로 중복되지 않게 만들어줘 ABC-NOTATION형식으로 3줄이상 되게 만들어줘`,
+        prompt: `간단하고 짧은 곡을 만드려고해. ${noteContent} 음계가 들어간 신나는 분위기 곡을 만들어서 ABC notation 기법으로 써줘`,
         max_tokens: 300,
         temperature: 0.2,
       });
-      console.log("- completion:\n" + response.data.choices[0].text);
-      const str = response.data.choices[0].text;
-      console.log(str);
 
-      const Note = await this.gptRepository.postNote({
+      const str = response.data.choices[0].text;
+      console.log("GPT API 가 주는 데이터", str);
+
+      const noteContentData = this.utils.parseABC(str);
+
+      const defaultNoteData = {
+        music: "",
+        referenceNumber: "1",
+        title: "",
+        timeSignature: "",
+        noteLength: "",
+        key: "",
+      };
+      const noteData = Object.assign({}, defaultNoteData, noteContentData, {
+        pianoState,
         noteContent,
       });
 
+      //   console.log("@@@@@@@@@@@@@@@@@2", noteContentData);
+      const timestamp = Date.now();
+
+      const midiBuffer = abcjs.midi.MidiWriter(music).dataUrl;
+      const stream = createWriteStream(`../../Notes/noteFile_${timestamp}.mid`);
+      stream.write(Buffer.from(midiBuffer));
+      stream.end();
+
+      const Note = await this.gptRepository.postNote({
+        noteData: {
+          music: noteData.music,
+          referenceNumber: noteData.referenceNumber,
+          title: noteData.title,
+          timeSignature: noteData.timeSignature,
+          noteLength: noteData.noteLength,
+          key: noteData.key,
+          noteContent: noteData.noteContent,
+        },
+      });
+
+      console.log("가공데이터:::::::::", Note);
       return Note;
     } catch (e) {
+      console.error("Failed to process note content:", e);
       return new Error(e);
     }
   }

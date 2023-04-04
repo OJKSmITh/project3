@@ -1,6 +1,16 @@
 import { ButtonStyled } from "./styled";
 
-export const Button = ({ color, children, textcolor, name, modal, onClick }) => {
+
+export const Button = ({
+  color,
+  children,
+  textcolor,
+  name,
+  onClick,
+  pianoState,
+  modal
+}) => {
+
   const colorChip = {
     color1: "#e9edf1",
     color2: "#a6b8c4",
@@ -8,7 +18,16 @@ export const Button = ({ color, children, textcolor, name, modal, onClick }) => 
   };
 
   return (
-    <ButtonStyled className={modal} name={name} color={colorChip[color]} onClick={onClick} textcolor={colorChip[textcolor]}>
+
+    <ButtonStyled
+      name={name}
+      color={colorChip[color]}
+      textcolor={colorChip[textcolor]}
+      onClick={onClick}
+      pianoState={pianoState}
+      className={modal}
+    >
+
       {children}
     </ButtonStyled>
   );
