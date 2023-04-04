@@ -1,5 +1,7 @@
 const dotenv = require("dotenv").config({ path: "../../.env" });
 const GPT_API_KEY = process.env.GPT_APIKEY;
+const fs = require("fs");
+const { createWriteStream } = require("fs");
 
 class GptService {
   constructor({ gptRepository, utils }) {
@@ -46,6 +48,12 @@ class GptService {
       });
 
       //   console.log("@@@@@@@@@@@@@@@@@2", noteContentData);
+      const timestamp = Date.now();
+
+      const midiBuffer = abcjs.midi.MidiWriter(music).dataUrl;
+      const stream = createWriteStream(`../../Notes/noteFile_${timestamp}.mid`);
+      stream.write(Buffer.from(midiBuffer));
+      stream.end();
 
       const Note = await this.gptRepository.postNote({
         noteData: {
