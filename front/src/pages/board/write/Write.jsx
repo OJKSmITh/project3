@@ -37,5 +37,5 @@ export const Write = () => {
         </WriteBox>
 
     </>
-  );
+  ;
 };

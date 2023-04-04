@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "../../../common/images/Logo.png";
 import { Button } from "../../../common";
+import { NavLink } from 'react-router-dom';
 
 export const Right = styled.div`
   display: flex;
@@ -43,9 +44,11 @@ export const SignupForm = () => {
       <h1>Hello, Friend</h1>
       <p>아직 회원이 아니신가요?</p>
       <p>회원가입을 진행해주세요!</p>
-      <Button color={"color2"} textcolor={"color3"}>
-        Sign Up
-      </Button>
+      <NavLink to="/signup"> 
+        <Button color={"color2"} textcolor={"color3"}>
+          Sign Up
+        </Button>
+      </NavLink>
     </Right>
   );
 };
