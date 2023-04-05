@@ -1,7 +1,5 @@
 const dotenv = require("dotenv").config({ path: "../../.env" });
 const GPT_API_KEY = process.env.GPT_APIKEY;
-const fs = require("fs");
-const { createWriteStream } = require("fs");
 
 class GptService {
   constructor({ gptRepository, utils }) {
@@ -30,7 +28,7 @@ class GptService {
       });
 
       const str = response.data.choices[0].text;
-      console.log("GPT API 가 주는 데이터", str);
+      // console.log("GPT API 가 주는 데이터", str);
 
       const noteContentData = this.utils.parseABC(str);
 
@@ -45,15 +43,8 @@ class GptService {
       const noteData = Object.assign({}, defaultNoteData, noteContentData, {
         pianoState,
         noteContent,
+        music: noteContentData.music,
       });
-
-      //   console.log("@@@@@@@@@@@@@@@@@2", noteContentData);
-      const timestamp = Date.now();
-
-      const midiBuffer = abcjs.midi.MidiWriter(music).dataUrl;
-      const stream = createWriteStream(`../../Notes/noteFile_${timestamp}.mid`);
-      stream.write(Buffer.from(midiBuffer));
-      stream.end();
 
       const Note = await this.gptRepository.postNote({
         noteData: {
@@ -68,6 +59,7 @@ class GptService {
       });
 
       console.log("가공데이터:::::::::", Note);
+
       return Note;
     } catch (e) {
       console.error("Failed to process note content:", e);
