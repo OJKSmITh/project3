@@ -11,16 +11,19 @@ import {
 } from "./styled/index.jsx";
 import { Button } from "../../common/index.jsx";
 import { useState } from "react";
-import { useEffect } from "react";
 import request from "../../lib/request.js";
+import { useSelector } from "react-redux";
 
 export const Music = () => {
   const [pianoState, setPianoState] = useState("");
   const [response, setResponse] = useState(null);
+  const { isLogin } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    console.log("=============", pianoState);
-  }, [pianoState]);
+  // if (!isLogin || !document.cookie) {
+  //   alert("비정상적인 접근입니다.");
+  //   window.location.href = "/";
+  //   return 0;
+  // }
 
   const gptSubmit = async () => {
     const body = { pianoState };

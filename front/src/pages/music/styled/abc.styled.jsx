@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import abcjs from "abcjs";
 import "abcjs/abcjs-audio.css";
+import { saveAs } from "file-saver";
+import { Canvg } from "canvg";
+import { fabric } from "fabric";
 
 export const Abclayout = styled.div`
   background: #fff;
@@ -26,6 +29,8 @@ export const Abc = ({ response }) => {
 
   console.log(abcjs);
 
+  const canvasRef = useRef(null);
+
   const [abcString, setAbcString] = useState("");
 
   useEffect(() => {
@@ -41,15 +46,44 @@ export const Abc = ({ response }) => {
       setAbcString(abcString);
 
       console.log("abcString:::", abcString);
+
       const staffWidth = Math.min(1100, window.innerWidth - 100);
       abcjs.renderAbc("paper", `${abcString}`, { staffWidth });
     }
   }, [response, setAbcString]);
+
+  const downloadImage = () => {
+    const svg = document.querySelector("#paper svg");
+
+    // SVG의 스타일과 속성을 반영하도록 수정
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const encodedData = window.btoa(svgString);
+
+    fabric.loadSVGFromString(svgString, (objects, options) => {
+      const loadedObjects = fabric.util.groupSVGElements(objects, options);
+      const canvas = new fabric.Canvas();
+
+      canvas.add(loadedObjects);
+      canvas.renderAll();
+
+      const dataUrl = canvas.toDataURL({
+        format: "png",
+      });
+
+      const link = document.createElement("a");
+      link.download = "score.png";
+      link.href = dataUrl;
+      link.click();
+    });
+  };
+
   return (
     <>
       <Abclayout>
         <div id="paper"></div>
       </Abclayout>
+      <canvas ref={canvasRef} style={{ display: "none" }} />
+      <button onClick={downloadImage}>Download Image</button>
     </>
   );
 };
