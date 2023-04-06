@@ -18,6 +18,7 @@ class AuthRepository {
       throw new Error(e);
     }
   }
+
   async getUserSnsByInfo({ hash }) {
     try {
       const user = await this.User.findOne({
@@ -33,6 +34,7 @@ class AuthRepository {
       throw new Error(e);
     }
   }
+  
   async getRepetition({email}){
     try {
       const user = await this.User.findOne({

@@ -3,7 +3,6 @@ import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
 
 import {useDispatch, useSelector} from 'react-redux';
-import { BEhost, BEport } from "../../../config";
 import { ModalChang } from './modal.styled';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -79,7 +78,6 @@ export const SignupForm = () => {
         {authCheck
         ?<CheckDiv>인증완료</CheckDiv>
         :<ModalChang props={email}></ModalChang>        
-        
         }
         <Input placeholder="text2" name="userpw" type="password"/>
         <Input placeholder="text2" type="password"/>
