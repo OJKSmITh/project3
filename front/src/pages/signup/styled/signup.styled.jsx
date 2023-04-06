@@ -1,17 +1,10 @@
 import styled from "styled-components";
 import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
-
-
 import {useDispatch, useSelector} from 'react-redux';
 import { ModalChang } from './modal.styled';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
-
-import { ModalChang } from "./modal.styled";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
 
 export const SignupForm = () => {
   const dispatch = useDispatch();

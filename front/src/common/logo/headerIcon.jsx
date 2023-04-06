@@ -1,22 +1,22 @@
 import {Icon} from '@iconify/react';
 import Modal from "react-modal"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 
 export const ChatComponent = ({color}) =>{
-    const socket = openSocket.connect("http://localhost:3001" ,{
-      transports: ["websocket"]
-    })
+
     const ChatIcon = styled(Icon)`
       cursor: pointer;
     `;
-    const [modalIsOpen, setIsOpen] = useState(false)
-    const [chatContent , setChat] = useState([])
+    const [socket, setSocket] = useState(null);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [chatContent, setChat] = useState([]);
     
+    const inputRef = useRef(null)
+    const nickname = document.cookie.split("=")[1];
 
-    const nickname =document.cookie.split("=")[1]
     
     const customStyles = {
         content: {
@@ -38,13 +38,46 @@ export const ChatComponent = ({color}) =>{
         }
       };
 
-      socket.on('reply', (data)=>{
-        console.log(data)
-        setChat(prevChat => {
-            data = JSON.parse(data)
-            return [...prevChat, data];
-        });
-      })
+    useEffect(() => {
+    const newSocket = openSocket.connect("http://localhost:3001", {
+      transports: ["websocket"],
+    });
+
+    setSocket(newSocket);
+
+      return () => {
+        newSocket.disconnect();
+      };
+    }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+  
+    socket.on("reply", (data) => {
+      console.log(data);
+      setChat((prevChat) => {
+        data = JSON.parse(data);
+  
+        // 내가 보낸 메시지를 걸러냅니다.
+        if (data.nickname !== nickname) {
+          return [...prevChat, data];
+        } else {
+          return prevChat;
+        }
+      });
+    });
+  
+    return () => {
+      socket.off("reply");
+    };
+  }, [socket, nickname]);
+
+  useEffect(() => {
+    if (modalIsOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [modalIsOpen]);
+
 
       const openModal = () =>{
         setIsOpen(true)
@@ -53,7 +86,7 @@ export const ChatComponent = ({color}) =>{
         setIsOpen(false)
       }
       const afterOpenModal = ()=>{
-        
+        inputRef.current.focus()
       }
 
       const ChatStart = styled.div`
@@ -111,14 +144,17 @@ export const ChatComponent = ({color}) =>{
         width:100%;
       `
 
-      const chatSubmit = (e)=>{
-        e.preventDefault()
-        const {value}= e.target.inputValue
-        const userInfo = {nickname, data: value}
-        socket.emit('data', userInfo)
-        e.target.reset()
-        e.target.inputValue.focus()
-      }
+      const chatSubmit = (e) => {
+        e.preventDefault();
+        const { value } = e.target.inputValue;
+        const userInfo = { nickname, data: value };
+        socket.emit("data", userInfo);
+
+        // 내가 보낸 메시지를 chatContent에 추가
+        setChat((prevChat) => [...prevChat, userInfo]);
+
+        e.target.reset();
+      };
       
       return (
         <>
@@ -144,7 +180,7 @@ export const ChatComponent = ({color}) =>{
                 ))}
                    
             <ChatForm onSubmit={chatSubmit}>
-              <ChatInput name='inputValue'></ChatInput>
+              <ChatInput name='inputValue' ref={inputRef}></ChatInput>
               <ChatButton>전송</ChatButton>
             </ChatForm>
           </Modal>
