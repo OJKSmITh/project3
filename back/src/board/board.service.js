@@ -12,8 +12,13 @@ class BoardService {
     }
 
     async write(data) {
-        console.log("serv::",data)
         await this.boardRepository.createBoard(data)
+    }
+
+    async view(id){
+
+        const result = await this.boardRepository.findOne(id)
+        return result
     }
 
 }

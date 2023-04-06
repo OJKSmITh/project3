@@ -1,17 +1,25 @@
 import { ViewBox, SubjectBox, ContentBox, FileBox } from "./styled/view.styled"
 import { useEffect } from "react"
+import { useState } from "react"
+import {useParams} from 'react-router-dom'
 import request from '../../../lib/request'
 
+
 export const View = () => {
-
+    const {id} = useParams()    
+    const [boardState, setBoardState] = useState({})                                                                                          
     useEffect(()=>{
-
+        (async()=>{
+            const {data} = await request.get(`/board/view/${id}`)
+            setBoardState(data)
+        })()
     },[])
+
 
     return <>
         <ViewBox>
-            <SubjectBox></SubjectBox>
-            <ContentBox>teststest</ContentBox>
+            <SubjectBox subject={boardState.subject}></SubjectBox>
+            <ContentBox>{boardState.content}</ContentBox>
             <FileBox>파일데이터</FileBox>
         </ViewBox>
     </>

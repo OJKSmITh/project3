@@ -14,7 +14,7 @@ export const  ViewBox = styled.div`
 `
 
 
-export const SubjectBox = () => {
+export const SubjectBox = ({subject}) => {
     const Subject = styled.div`
 
         font-size: 30px;
@@ -31,7 +31,7 @@ export const SubjectBox = () => {
 
     return (
         <Subject>
-            <SubContent>제목:</SubContent><SubContent>ChatGPT에게 어그로끄는 법을 물어보았다.</SubContent>
+            <SubContent>제목:</SubContent><SubContent>{subject}</SubContent>
         </Subject>
     )
 

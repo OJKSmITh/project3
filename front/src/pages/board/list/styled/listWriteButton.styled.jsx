@@ -19,6 +19,6 @@ const WriteButtonStyled = styled.div`
 
 export const ListWriteButton = () =>{
     return ( 
-        <NavLink to="/board/write"><WriteButtonStyled>글쓰기</WriteButtonStyled></NavLink>
+        <NavLink to="/community/write"><WriteButtonStyled>글쓰기</WriteButtonStyled></NavLink>
     )
 }
