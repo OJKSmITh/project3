@@ -55,7 +55,11 @@ export const Abc = ({ response }) => {
   const downloadImage = () => {
     const svg = document.querySelector("#paper svg");
 
-    fabric.loadSVGFromString(svg.outerHTML, (objects, options) => {
+    // SVG의 스타일과 속성을 반영하도록 수정
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const encodedData = window.btoa(svgString);
+
+    fabric.loadSVGFromString(svgString, (objects, options) => {
       const loadedObjects = fabric.util.groupSVGElements(objects, options);
       const canvas = new fabric.Canvas();
 
