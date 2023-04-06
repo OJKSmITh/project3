@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import request from '../../../../lib/request'
 
 export const  WriteBox = styled.div`
     & > div:nth-child(1) {
@@ -106,9 +106,7 @@ export const ContentBox = () => {
 }
 
 
-export const Upload = () => {
-    // const data = useSelector(state => state.user)
-    // console.log(data)
+export const Upload = ({setUploadFile}) => {
 
     const UploadFrm = styled.form`
     `
@@ -140,17 +138,43 @@ export const Upload = () => {
         box-sizing: border-box;
     `
 
+    const FileSpan = styled.span`
+        display: inline-block;
+        border-radius: 12px;
+        line-height: 36px;
+        font-size: 14px;
+        padding-top : 10px;
+        margin-left : 20px;
+    `
+
+    const imgSubmit = async (e) => {
+        e.preventDefault();
+        const body = new FormData(e.target);
+        // const response = await request.post("/user/single", body, {
+        // headers: { "Content-Type": "multipart/form-data" },
+        // });
+        // setUploadFile(document.querySelector('#musicfilename').value)
+    }
+
+    const changed = (e) => {
+        
+        return (setUploadFile)=>{
+
+        }
+        document.querySelector('#uploadBtn').click()
+    }
+
+
     return<>
         <UploadBox> 
-            <UploadFrm>
-                <Input type="file" id="musicfilename"></Input>
-                <ChoiceBtn htmlFor="musicfilename">업로드</ChoiceBtn>
-                <button type='submit' style={{display: "none"}}></button>
-
-                <Input type="file" id="imagefilename"></Input>
-                <ChoiceBtn htmlFor="imagefilename">업로드</ChoiceBtn>
-                <button type='submit' style={{display: "none"}}></button>
+            <UploadFrm onSubmit={imgSubmit}>
+                <Input type="file" id="musicfilename" onChange={changed}/>
+                <ChoiceBtn htmlFor="musicfilename">파일 업로드</ChoiceBtn>
+                <button type='submit' style={{display: "none"}} id="uploadBtn"></button>
             </UploadFrm>
+            <FileSpan>
+                파일 :     
+            </FileSpan> 
         </UploadBox>        
     </>
 }

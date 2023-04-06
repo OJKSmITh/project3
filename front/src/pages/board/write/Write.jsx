@@ -8,11 +8,12 @@ import {
 } from "./styled/write.styled";
 import request from "../../../lib/request";
 import {useSelector} from "react-redux"
+import { useState } from "react";
 
 export const Write = () => {
 
     const {isLogin} = useSelector(state => state.user)
-
+    const [uploadFile, setUploadFile] = useState({})
     if( !isLogin || !document.cookie){
         alert("비정상적이 접근입니다.")
         window.location.href = '/'
@@ -24,10 +25,15 @@ export const Write = () => {
         e.preventDefault()
         const { subject, content } = e.target
         const nickname = "test1"
-        const data = { subject:subject.value, content: content.value, nickname}
-        console.log(data)
+        const data = { subject:subject.value, content: content.value, nickname, upload: uploadFile}
         const response = await request.post("/board",data)
-        console.log(response)
+        console.log(data)
+        // if (response.status === 200) window.location.href='/community'
+    }
+
+    const uploadFileSet = (file) => {
+        setUploadFile(file)
+        return 
     }
     
     return <>
@@ -37,7 +43,7 @@ export const Write = () => {
                 <ContentBox></ContentBox>
                 <SubBtn>완료</SubBtn>
             </WriteSubmit>
-            <Upload></Upload>
+            <Upload uploadfile={uploadFileSet}></Upload>
         </WriteBox>
     </>
 };
