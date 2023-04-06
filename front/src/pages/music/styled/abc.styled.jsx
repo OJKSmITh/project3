@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import abcjs from "abcjs";
 import "abcjs/abcjs-audio.css";
-import { saveAs } from "file-saver";
-import { Canvg } from "canvg";
 import { fabric } from "fabric";
+import MidiWriter from "midi-writer-js";
 
 export const Abclayout = styled.div`
   background: #fff;
@@ -80,6 +79,48 @@ export const Abc = ({ response }) => {
     });
   };
 
+  // const convertAbcToMidi = (abcString) => {
+  //   const parsedTune = abcjs.parse(abcString);
+  //   const midiWriter = new MidiWriter.Writer();
+  //   const midiTrack = new MidiWriter.Track();
+
+  //   for (const voice of parsedTune[0].voices) {
+  //     for (const note of voice) {
+  //       if (note.el_type === "note") {
+  //         const midiNotes = note.pitches.map(
+  //           (pitch) => pitch.startingPitch + pitch.pitch
+  //         );
+
+  //         const midiNote = new MidiWriter.NoteEvent({
+  //           pitch: midiNotes,
+  //           duration: "T" + note.duration,
+  //         });
+
+  //         midiTrack.addEvent(midiNote);
+  //       } else if (note.el_type === "rest") {
+  //         const midiRest = new MidiWriter.NoteEvent({
+  //           rest: true,
+  //           duration: "T" + note.duration,
+  //         });
+
+  //         midiTrack.addEvent(midiRest);
+  //       }
+  //     }
+  //   }
+
+  //   midiWriter.addTrack(midiTrack);
+
+  //   return midiWriter.buildFile();
+  // };
+
+  // const downloadMidi = () => {
+  //   const midiData = convertAbcToMidi(abcString);
+  //   const link = document.createElement("a");
+  //   link.download = "score.midi";
+  //   link.href = "data:audio/midi;base64," + window.btoa(midiData);
+  //   link.click();
+  // };
+
   return (
     <>
       <Abclayout>
@@ -87,6 +128,7 @@ export const Abc = ({ response }) => {
       </Abclayout>
       <canvas ref={canvasRef} style={{ display: "none" }} />
       <button onClick={downloadImage}>Download Image</button>
+      {/* <button onClick={downloadMidi}>Download MIDI</button> */}
     </>
   );
 };
