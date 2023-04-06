@@ -1,7 +1,7 @@
 import { HeaderStyled } from "./styled";
 import { HamburgerButtonComponent } from "./hamburger/hamburger";
 import { NavLink, useLocation } from "react-router-dom";
-import { BellComponent, CommunityComponent, PianoComponent } from "../logo";
+import { ChatComponent, CommunityComponent, PianoComponent } from "../logo";
 import { MainLogo } from "./Logo/logo";
 
 
@@ -19,7 +19,7 @@ export const Header = () =>{
                 <NavLink to="/music"><PianoComponent color={iconcolor}/></NavLink>
             </div>
             <div>
-                <BellComponent color={iconcolor}/>
+                <ChatComponent color={iconcolor}/>
                 <HamburgerButtonComponent/>
             </div>
         </HeaderStyled>
