@@ -61,7 +61,10 @@ export const Abc = ({ response }) => {
 
     fabric.loadSVGFromString(svgString, (objects, options) => {
       const loadedObjects = fabric.util.groupSVGElements(objects, options);
-      const canvas = new fabric.Canvas();
+      const canvas = new fabric.Canvas(null, {
+        width: svg.getAttribute("width"),
+        height: svg.getAttribute("height"),
+      });
 
       canvas.add(loadedObjects);
       canvas.renderAll();

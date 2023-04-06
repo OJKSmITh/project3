@@ -2,13 +2,7 @@ import styled from "styled-components";
 import { Button, Input, Profileimg } from "../../../common";
 import request from "../../../lib/request";
 
-
-import {useDispatch, useSelector} from 'react-redux';
-import { ModalChang } from './modal.styled';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-
-
+import { useDispatch, useSelector } from "react-redux";
 import { ModalChang } from "./modal.styled";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -93,13 +87,14 @@ export const SignupForm = () => {
       <form onSubmit={signupSubmit}>
         <Input type="hidden" name="userImg" id="inputImg" />
 
-        <Input placeholder="text1" name="email" onChange={handleInputChange}/>
-        {authCheck
-        ?<CheckDiv>인증완료</CheckDiv>
-        :<ModalChang props={email}></ModalChang>        
-        }
-        <Input placeholder="text2" name="userpw" type="password"/>
-        <Input placeholder="text2" type="password"/>
+        <Input placeholder="text1" name="email" onChange={handleInputChange} />
+        {authCheck ? (
+          <CheckDiv>인증완료</CheckDiv>
+        ) : (
+          <ModalChang props={email}></ModalChang>
+        )}
+        <Input placeholder="text2" name="userpw" type="password" />
+        <Input placeholder="text2" type="password" />
 
         <Input placeholder="text3" name="nickname" />
         <Input placeholder="text4" name="phoneNumber" />
