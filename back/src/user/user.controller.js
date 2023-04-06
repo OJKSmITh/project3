@@ -6,6 +6,17 @@ class UserController {
     this.dotenv = dotenv
   }
 
+  async getMe(req,res,next) {
+    try{
+      console.log(req.body)
+      // const response = await this.userService.me()
+
+      res.send(response)
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+
   async postSignup(req, res, next) {
     try {
       const user = await this.userService.signup(req.body);
@@ -42,7 +53,7 @@ class UserController {
           Authorization:`Bearer ${access_token}`
         }
       })
-      console.log(data)
+
       const userInfo = {
         email: data.kakao_account.email,
         nickname: data.kakao_account.profile.nickname,

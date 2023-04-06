@@ -12,8 +12,6 @@ import {useSelector} from "react-redux"
 export const Write = () => {
 
     const {isLogin} = useSelector(state => state.user)
-    console.log(isLogin)
-    console.log(!document.cookie)
 
     if( !isLogin || !document.cookie){
         alert("비정상적이 접근입니다.")

@@ -17,12 +17,21 @@ class BoardRepository {
         }
     }
 
+    async findOne(id){
+        try{
+            const result = await this.Board.findOne({where:{
+                id
+            },raw:true})
+            return result
+        }catch(e){
+            console.log(e.message)
+        }
+    }
+
 
     async createBoard(payload) {
         try{
-            console.log("repo::: ",payload)
             const test = await this.Board.create(payload, {raw:true})
-            console.log(test)
         }catch(e){
             console.log(e)
         }
