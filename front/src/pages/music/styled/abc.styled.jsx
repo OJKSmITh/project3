@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import abcjs from "abcjs";
 import "abcjs/abcjs-audio.css";
 import { fabric } from "fabric";
+import { saveAs } from "file-saver";
 import MidiWriter from "midi-writer-js";
 
 export const Abclayout = styled.div`
@@ -23,11 +24,6 @@ export const Abclayout = styled.div`
 `;
 
 export const Abc = ({ response }) => {
-  console.log("GPT ::::::::::::", response);
-  // console.log(pianoState);
-
-  console.log(abcjs);
-
   const canvasRef = useRef(null);
 
   const [abcString, setAbcString] = useState("");
@@ -44,12 +40,33 @@ export const Abc = ({ response }) => {
 
       setAbcString(abcString);
 
-      console.log("abcString:::", abcString);
-
       const staffWidth = Math.min(1100, window.innerWidth - 100);
       abcjs.renderAbc("paper", `${abcString}`, { staffWidth });
     }
   }, [response, setAbcString]);
+
+  const downloadMidi = () => {
+    const noteContent = response.data.noteContent;
+    const noteLength = response.data.noteLength;
+    console.log("noteContent:", noteContent, "noteLength:", noteLength);
+
+    const track = new MidiWriter.Track();
+    const noteEvents = [
+      new MidiWriter.NoteEvent({
+        pitch: [noteContent],
+        duration: `${noteLength}`,
+      }),
+    ];
+
+    console.log(noteEvents);
+    track.addEvent(noteEvents, function (event, index) {
+      return { sequential: true };
+    });
+
+    const write = new MidiWriter.Writer([track]);
+    const blob = new Blob([write.dataUri()], { type: "audio/midi" });
+    saveAs(blob, "score.mid");
+  };
 
   const downloadImage = () => {
     const svg = document.querySelector("#paper svg");
@@ -79,48 +96,6 @@ export const Abc = ({ response }) => {
     });
   };
 
-  // const convertAbcToMidi = (abcString) => {
-  //   const parsedTune = abcjs.parse(abcString);
-  //   const midiWriter = new MidiWriter.Writer();
-  //   const midiTrack = new MidiWriter.Track();
-
-  //   for (const voice of parsedTune[0].voices) {
-  //     for (const note of voice) {
-  //       if (note.el_type === "note") {
-  //         const midiNotes = note.pitches.map(
-  //           (pitch) => pitch.startingPitch + pitch.pitch
-  //         );
-
-  //         const midiNote = new MidiWriter.NoteEvent({
-  //           pitch: midiNotes,
-  //           duration: "T" + note.duration,
-  //         });
-
-  //         midiTrack.addEvent(midiNote);
-  //       } else if (note.el_type === "rest") {
-  //         const midiRest = new MidiWriter.NoteEvent({
-  //           rest: true,
-  //           duration: "T" + note.duration,
-  //         });
-
-  //         midiTrack.addEvent(midiRest);
-  //       }
-  //     }
-  //   }
-
-  //   midiWriter.addTrack(midiTrack);
-
-  //   return midiWriter.buildFile();
-  // };
-
-  // const downloadMidi = () => {
-  //   const midiData = convertAbcToMidi(abcString);
-  //   const link = document.createElement("a");
-  //   link.download = "score.midi";
-  //   link.href = "data:audio/midi;base64," + window.btoa(midiData);
-  //   link.click();
-  // };
-
   return (
     <>
       <Abclayout>
@@ -128,7 +103,7 @@ export const Abc = ({ response }) => {
       </Abclayout>
       <canvas ref={canvasRef} style={{ display: "none" }} />
       <button onClick={downloadImage}>Download Image</button>
-      {/* <button onClick={downloadMidi}>Download MIDI</button> */}
+      <button onClick={downloadMidi}>Download MIDI</button>
     </>
   );
 };
