@@ -28,12 +28,10 @@ class AuthService {
 
   async Snscheck({token}){
     try {
-      console.log(token)
       const hash = this.crypto
         .createHmac("sha256", "web7722")
         .update(token)
         .digest("hex");
-      console.log(hash)
       const response = await this.authRepository.getUserSnsByInfo({
         hash   
       })

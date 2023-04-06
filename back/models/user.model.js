@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       primaryKey:true,
     },
     userpw: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING(200),
       allowNull: false,
     },
     phoneNumber: {
