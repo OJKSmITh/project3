@@ -26,11 +26,15 @@ export const HamburgerButtonComponent = () => {
     </HamburgerStyled>
     {showSubMenu && (
       <SubMenu>
-        <NavLink to="/board/list" onClick={toggleSubMenu}>글쓰기</NavLink>
+        <NavLink to="/community/list" onClick={toggleSubMenu}>글쓰기</NavLink>
         <NavLink to="/music" onClick={toggleSubMenu}>피아노 치기</NavLink>
         {isLogin === false ?
         (<NavLink to="/signin" onClick={toggleSubMenu}>로그인</NavLink>):
         (<NavLink onClick={logoutAction}>로그아웃</NavLink>)
+        }
+        {isLogin === true
+        ? <NavLink to="/profile" onClick={toggleSubMenu}>프로필</NavLink>
+        : <></>
         }
       </SubMenu>
     )}

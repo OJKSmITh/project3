@@ -39,12 +39,11 @@ class UserService {
 
   async naverSignup(userInfo){
     try {
-      userInfo.phonenumber = userInfo.phonenumber.replace("+82","0")
+      userInfo.phoneNumber = userInfo.phonenumber.replace("+82","0")
       userInfo.nickname = userInfo.nickname.slice(0,-4)
       userInfo.userpw = userInfo.userpw.slice(0,-4)
       const hash = this.crypto.createHmac("sha256", "web7722").update(userInfo.userpw.toString()).digest("hex")
       userInfo.userpw = hash
-      console.log(userInfo)
       const user = await this.userRepository.snsAddUser(userInfo)
       return userInfo
     } catch (e) {
@@ -61,7 +60,7 @@ class UserService {
       const googleInfo = { 
               email, 
               userpw : hash,
-              phonenumber: "01000000000",
+              phoneNumber: "01000000000",
               nickname: name, 
               userImg: picture,
               level: "user", 
