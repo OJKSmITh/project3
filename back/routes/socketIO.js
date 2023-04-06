@@ -9,5 +9,12 @@ module.exports = async (server, app) => {
       // socket.broadcast.emit 대신 io.emit을 사용합니다.
       io.emit("reply", JSON.stringify(data));
     });
+    socket.on("user_enter", (nickname) => {
+        io.emit("user_enter", nickname);
+      });
+    
+      socket.on("user_exit", (nickname) => {
+        io.emit("user_exit", nickname);
+      });
   });
 };
