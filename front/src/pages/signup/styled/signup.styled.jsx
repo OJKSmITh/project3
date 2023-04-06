@@ -6,11 +6,6 @@ import { ModalChang } from './modal.styled';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-
-import { ModalChang } from "./modal.styled";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-
 export const SignupForm = () => {
   const dispatch = useDispatch();
   const { authCheck } = useSelector((state) => state.email);

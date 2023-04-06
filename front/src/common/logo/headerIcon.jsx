@@ -1,59 +1,113 @@
 import {Icon} from '@iconify/react';
 import Modal from "react-modal"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 
+
 export const ChatComponent = ({color}) =>{
-    const socket = openSocket.connect("http://localhost:3001" ,{
-      transports: ["websocket"]
-    })
-    const ChatIcon = styled(Icon)`
-      cursor: pointer;
-    `;
-    const [modalIsOpen, setIsOpen] = useState(false)
-    const [chatContent , setChat] = useState([])
-    
+        const dispatch = useDispatch()
+        const {chatStatus} = useSelector((state)=> state.chat)
+        const ChatIcon = styled(Icon)`
+          cursor: pointer;
+        `;
+        const [socket, setSocket] = useState(null);
+        const [modalIsOpen, setIsOpen] = useState(false);
+        const [chatContent, setChat] = useState([]);
+        const inputRef = useRef(null)
+        const nickname = document.cookie.split("=")[1];
 
-    const nickname =document.cookie.split("=")[1]
     
-    const customStyles = {
-        content: {
-          top: '45%',
-          left: '80%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: '#fff', // Modal 내용의 배경색
-          borderRadius: '10px',
-          padding: '20px',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-          width:"40%",
-          height:"90%",
-        },
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)' // Modal 배경의 흐림 정도
-        }
-      };
+      const customStyles = {
+          content: {
+            top: '45%',
+            left: '80%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#fff', // Modal 내용의 배경색
+            borderRadius: '10px',
+            padding: '20px',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+            width:"40%",
+            height:"90%",
+          },
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)' // Modal 배경의 흐림 정도
+          }
+        };
 
-      socket.on('reply', (data)=>{
-        console.log(data)
-        setChat(prevChat => {
-            data = JSON.parse(data)
-            return [...prevChat, data];
+        useEffect(() => {
+        const newSocket = openSocket.connect("http://localhost:3001", {
+          transports: ["websocket"],
         });
-      })
 
-      const openModal = () =>{
-        setIsOpen(true)
-      }
-      const closeModal = () =>{
-        setIsOpen(false)
-      }
+        setSocket(newSocket);
+
+        return () => {
+          newSocket.disconnect();
+        };
+      }, []);
+
+      useEffect(() => {
+        if (!socket) return;
+      
+        socket.on("reply", (data) => {
+          console.log(data);
+          setChat((prevChat) => {
+            data = JSON.parse(data);
+            if (data.nickname !== nickname) {
+              return [...prevChat, data];
+            } else {
+              return prevChat;
+            }
+          });
+        });
+        socket.on("user_enter", (userNickname) => {
+          if (userNickname !== nickname) {
+            setChat((prevChat) => [
+              ...prevChat,
+              { systemMessage: `${userNickname}님이 입장하셨습니다.` },
+            ]);
+          }
+        });
+        socket.on("user_exit", (userNickname) => {
+          if (userNickname !== nickname) {
+            setChat((prevChat) => [
+              ...prevChat,
+              { systemMessage: `${userNickname}님이 퇴장하셨습니다.` },
+            ]);
+          }
+        });
+      
+        return () => {
+          socket.off("user_enter");
+          socket.off("user_exit");;
+        };
+      }, [socket, nickname]);
+
+      useEffect(() => {
+        if (modalIsOpen && inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, [modalIsOpen]);
+
+
+      const openModal = () => {
+        setIsOpen(true);
+        socket.emit("user_enter", nickname); // emit user_enter event
+      };
+      const closeModal = () => {
+        setIsOpen(false);
+        socket.emit("user_exit", nickname); // emit user_exit event
+      };
       const afterOpenModal = ()=>{
-        
+        dispatch({type:"CHAT/TRUE"})
+      }
+      const afterModalClose = () =>{
+
       }
 
       const ChatStart = styled.div`
@@ -111,14 +165,17 @@ export const ChatComponent = ({color}) =>{
         width:100%;
       `
 
-      const chatSubmit = (e)=>{
-        e.preventDefault()
-        const {value}= e.target.inputValue
-        const userInfo = {nickname, data: value}
-        socket.emit('data', userInfo)
-        e.target.reset()
-        e.target.inputValue.focus()
-      }
+      const chatSubmit = (e) => {
+        e.preventDefault();
+        const { value } = e.target.inputValue;
+        const userInfo = { nickname, data: value };
+        socket.emit("data", userInfo);
+
+        // 내가 보낸 메시지를 chatContent에 추가
+        setChat((prevChat) => [...prevChat, userInfo]);
+
+        e.target.reset();
+      };
       
       return (
         <>
@@ -129,22 +186,37 @@ export const ChatComponent = ({color}) =>{
             height="40"
             onClick={openModal}
           />
-          <Modal isOpen={modalIsOpen} style={customStyles} onAfterOpen={afterOpenModal}>
+          <Modal
+            isOpen={modalIsOpen}
+            style={customStyles}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            onAfterClose={afterModalClose}
+          >
             <ChatStart>
               <h2>채팅이 시작되었습니다.</h2>
             </ChatStart>
-            <ChatContent>
-                <div>{nickname}님이 입장하셨습니다</div> 
-            </ChatContent>
-              {chatContent.map((message, index) => (
-                  (<ChatContentWrap> 
-                  <ChatContent1 key={index}>{message.nickname}</ChatContent1>
-                  <ChatContent2 key={index}>{message.data}</ChatContent2>
-                  </ChatContentWrap>)
-                ))}
-                   
+            {chatStatus ? (
+              <ChatContent>
+                <div>{nickname}님이 입장하셨습니다</div>
+              </ChatContent>
+            ) : (
+              <></>
+            )}
+            {chatContent.map((message, index) =>
+              message.systemMessage ? (
+                <ChatContent key={index}>
+                  <div>{message.systemMessage}</div>
+                </ChatContent>
+              ) : (
+                <ChatContentWrap key={index}>
+                  <ChatContent1>{message.nickname}</ChatContent1>
+                  <ChatContent2>{message.data}</ChatContent2>
+                </ChatContentWrap>
+              )
+            )}
             <ChatForm onSubmit={chatSubmit}>
-              <ChatInput name='inputValue'></ChatInput>
+              <ChatInput name="inputValue" ref={inputRef}></ChatInput>
               <ChatButton>전송</ChatButton>
             </ChatForm>
           </Modal>
