@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config({ path: "../../.env" });
-const GPT_API_KEY = process.env.GPT_APIKEY;
+const GPT_API_KEY = process.env.CHAT_GPT_API_KEY;
 
 class GptService {
   constructor({ gptRepository, utils }) {
@@ -8,13 +8,17 @@ class GptService {
   }
 
   async API({ pianoState }) {
-    console.log("pianoState :::::::::", pianoState);
+    // console.log("pianoState :::::::::", pianoState);
     try {
+      console.log(GPT_API_KEY, "aslknclasknaslkncalknc")
       const { Configuration, OpenAIApi } = require("openai");
       const configiration = new Configuration({
         organization: "org-oqXxpiEYAU0duJAPh5ckxVEv",
         apiKey: GPT_API_KEY,
       });
+
+      console.log(configiration, "configi sadsdasdasdasdasdasdasd")
+
 
       const noteContent = pianoState.join("");
 
