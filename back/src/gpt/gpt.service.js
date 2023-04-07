@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config({ path: "../../.env" });
-const GPT_API_KEY = process.env.CHAT_GPT_API_KEY;
+const GPT_API_KEY = process.env.GPT_APIKEY;
 
 class GptService {
   constructor({ gptRepository, utils }) {
