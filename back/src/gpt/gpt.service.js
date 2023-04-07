@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config({ path: "../../.env" });
-const GPT_API_KEY = process.env.CHAT_GPT_API_KEY;
+const GPT_API_KEY = process.env.GPT_APIKEY;
 
 class GptService {
   constructor({ gptRepository, utils }) {
@@ -10,15 +10,14 @@ class GptService {
   async API({ pianoState }) {
     // console.log("pianoState :::::::::", pianoState);
     try {
-      console.log(GPT_API_KEY, "aslknclasknaslkncalknc")
+      // console.log(GPT_API_KEY, "aslknclasknaslkncalknc");
       const { Configuration, OpenAIApi } = require("openai");
       const configiration = new Configuration({
         organization: "org-oqXxpiEYAU0duJAPh5ckxVEv",
         apiKey: GPT_API_KEY,
       });
 
-      console.log(configiration, "configi sadsdasdasdasdasdasdasd")
-
+      // console.log(configiration, "configi sadsdasdasdasdasdasdasd");
 
       const noteContent = pianoState.join("");
 
@@ -32,9 +31,10 @@ class GptService {
       });
 
       const str = response.data.choices[0].text;
-      // console.log("GPT API 가 주는 데이터", str);
+      console.log("GPT API 가 주는 데이터", str);
 
       const noteContentData = this.utils.parseABC(str);
+      console.log(noteContentData);
 
       const defaultNoteData = {
         music: "",
