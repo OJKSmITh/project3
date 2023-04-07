@@ -6,6 +6,15 @@ class UserService {
     this.DateFormat = DateFormat;
   }
 
+  async me(token){
+    try{
+      const result = await this.userRepository.getUser(token)
+      return result
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+
   async signup(data) {
     try {
       const {email, userpw, nickname} = data

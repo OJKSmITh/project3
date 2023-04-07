@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require('fs')
 const mime = require('mime')
 const { auth, board, user, gpt } = require("../src");
+const upload = require("../middleware/upload");
 
 router.get("/", (req, res) => res.send("hi"));
 
@@ -23,6 +24,12 @@ router.get('/download/:filename',(req,res,next)=>{
     // // 스트림을 사용하여 파일 전송
     // filestream.pipe(res)
 })
+
+router.post("/single", upload.single("filename"), (req, res) => {
+    console.log(req.file)
+    res.send(req.file);
+});
+
 
 
 

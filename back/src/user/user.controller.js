@@ -1,16 +1,15 @@
 class UserController {
-  constructor({ userService, qs, axios, dotenv }) {
+  constructor({ userService, qs, axios, config }) {
     this.userService = userService;
     this.qs = qs
     this.axios = axios
-    this.dotenv = dotenv
+    this.config = config
   }
 
   async getMe(req,res,next) {
     try{
-      console.log(req.body)
-      // const response = await this.userService.me()
-
+      const { token } = req.params
+      const response = await this.userService.me(token)
       res.send(response)
     }catch(e){
       console.log(e.message)
@@ -19,6 +18,8 @@ class UserController {
 
   async postSignup(req, res, next) {
     try {
+      console.log(req.body)
+      req.body.userImg = `http://${this.config.host}:${this.config.port}/${req.body.userImg}`
       const user = await this.userService.signup(req.body);
       res.status(201).json(user);
     } catch (e) {

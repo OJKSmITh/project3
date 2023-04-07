@@ -2,15 +2,17 @@ import { Wrap, Form, Left, Right } from "./styled";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import request from "../../lib/request";
+import { useState } from "react";
 
 export const Profile = () => {
   const {isLogin} = useSelector(state => state.user)
+  const [userInfo, setUserInfo] = useState([])
 
   useEffect(()=>{
     (async()=>{
       const token = document.cookie.split('=')[1]
-      console.log(token)
-      const {data} = await request.get('/user/me',{token})
+      const {data} = await request.get(`/user/me/${token}`)
+      setUserInfo(data)
     })()
   },[])
 
@@ -27,8 +29,8 @@ export const Profile = () => {
     <>
       <Wrap>
         <Form>
-          <Left></Left>
-          <Right></Right>
+          <Left profileImg={userInfo.userImg}></Left>
+          <Right user={userInfo}></Right>
         </Form>
       </Wrap>
     </>
