@@ -9,6 +9,7 @@ import openSocket from 'socket.io-client';
 export const ChatComponent = ({color}) =>{
         const dispatch = useDispatch()
         const {chatStatus} = useSelector((state)=> state.chat)
+        const {isLogin} = useSelector((state)=>state.user)
         const ChatIcon = styled(Icon)`
           cursor: pointer;
         `;
@@ -96,8 +97,10 @@ export const ChatComponent = ({color}) =>{
 
 
       const openModal = () => {
+        if(!isLogin) return alert("로그인을 해주세요")
         setIsOpen(true);
         socket.emit("user_enter", nickname); // emit user_enter event
+
       };
       const closeModal = () => {
         setIsOpen(false);
@@ -170,10 +173,8 @@ export const ChatComponent = ({color}) =>{
         const { value } = e.target.inputValue;
         const userInfo = { nickname, data: value };
         socket.emit("data", userInfo);
-
         // 내가 보낸 메시지를 chatContent에 추가
         setChat((prevChat) => [...prevChat, userInfo]);
-
         e.target.reset();
       };
       
@@ -224,8 +225,8 @@ export const ChatComponent = ({color}) =>{
       );
 }
 export const CommunityComponent =  ({color}) => {
-    return <Icon icon="fluent:people-community-24-regular" color={color} width="40" height="40" />
+    return <Icon icon="fluent:people-community-24-regular" color={color} width="40" height="40"  />
 }
-export const PianoComponent = ({color}) =>{
-    return <Icon icon="material-symbols:piano" color={color} width="40" height="40" />
+export const PianoComponent = ({color, check}) =>{
+    return <Icon icon="material-symbols:piano" color={color} width="40" height="40" style={{cursor: 'pointer'}} onClick={check}/>
 }

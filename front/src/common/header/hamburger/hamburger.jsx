@@ -9,7 +9,11 @@ export const HamburgerButtonComponent = () => {
   const dispatch = useDispatch()
   const {loadding, error, data, isLogin} = useSelector(state => state.user)
   const [showSubMenu, setShowSubMenu] = useState(false)
-  const toggleSubMenu = () =>setShowSubMenu(!showSubMenu)
+  const toggleSubMenu = () =>{
+    setShowSubMenu(!showSubMenu)
+  }
+
+  
 
   const logoutAction = () =>{
     dispatch({type:'USER/LOGOUT'})
