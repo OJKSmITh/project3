@@ -3,6 +3,17 @@ class UserRepository {
     this.User = User;
   }
 
+  async getUser(nickname){
+    try{
+      const result = await this.User.findOne({ 
+        attributes: { exclude: ["userpw"] },
+        where:{nickname},
+        raw:true})
+      return result
+    }catch(e){
+      console.log(e.message)
+    }
+  }
   async addUser(payload) {
     try {
       const user = (await this.User.create(payload)).get({plain:true});

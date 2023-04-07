@@ -45,7 +45,7 @@ export const Form = styled.div`
     width: 70%;
   }
 
-  & > form > input:nth-child(6) {
+  & > form > input:nth-child(8) {
     height: 100px;
   }
 

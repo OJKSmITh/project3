@@ -106,7 +106,7 @@ export const ContentBox = () => {
 }
 
 
-export const Upload = ({setUploadFile}) => {
+export const Upload = ({uploadfile}) => {
 
     const UploadFrm = styled.form`
     `
@@ -150,25 +150,26 @@ export const Upload = ({setUploadFile}) => {
     const imgSubmit = async (e) => {
         e.preventDefault();
         const body = new FormData(e.target);
-        // const response = await request.post("/user/single", body, {
-        // headers: { "Content-Type": "multipart/form-data" },
-        // });
+        const response = await request.post("/user/single", body, {
+        headers: { "Content-Type": "multipart/form-data" },
+        });
         // setUploadFile(document.querySelector('#musicfilename').value)
     }
 
-    const changed = (e) => {
+    const changed = uploadfile => {
         
-        return (setUploadFile)=>{
-
+        return (e)=>{
+            // uploadfile(e.target.value)
+            document.querySelector('#uploadBtn').click()
         }
-        document.querySelector('#uploadBtn').click()
+        
     }
 
 
     return<>
         <UploadBox> 
             <UploadFrm onSubmit={imgSubmit}>
-                <Input type="file" id="musicfilename" onChange={changed}/>
+                <Input type="file" id="musicfilename" onChange={changed(uploadfile)}/>
                 <ChoiceBtn htmlFor="musicfilename">파일 업로드</ChoiceBtn>
                 <button type='submit' style={{display: "none"}} id="uploadBtn"></button>
             </UploadFrm>

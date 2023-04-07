@@ -31,10 +31,6 @@ export const Write = () => {
         // if (response.status === 200) window.location.href='/community'
     }
 
-    const uploadFileSet = (file) => {
-        setUploadFile(file)
-        return 
-    }
     
     return <>
         <WriteBox>
@@ -43,7 +39,7 @@ export const Write = () => {
                 <ContentBox></ContentBox>
                 <SubBtn>완료</SubBtn>
             </WriteSubmit>
-            <Upload uploadfile={uploadFileSet}></Upload>
+            <Upload uploadfile={setUploadFile}></Upload>
         </WriteBox>
     </>
 };

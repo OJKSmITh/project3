@@ -29,19 +29,20 @@ export const RightWrap = styled.div`
   }
 `;
 
-export const Right = () => {
+export const Right = ({user}) => {
+  console.log(user)
   return (
     <RightWrap>
-      <form>
-        <Input placeholder="text1" />
-        <Input placeholder="text3" />
-        <Input placeholder="text4" />
-        <Input placeholder="text5" />
+      <form onSubmit={(e)=>e.preventDefault()}>
+        <Input value={user.email || ""} state="disabled"/>
+        <Input value={user.nickname || ""} state="disabled"/>
+        <Input value={user.phoneNumber || ""} state="disabled"/>
+        <Input value={user.introduce || "소개를 입력해주세요."} state="disabled"/>
         <div>
-          <Button color={"color2"} textcolor={"color3"}>
-            가입하기
+          <Button onClick={()=>window.location.href='/profile/modify'} color={"color2"} textcolor={"color3"}>
+            수정하기
           </Button>
-          <Button color={"color2"} textcolor={"color3"}>
+          <Button onClick={()=>window.location.href='/'} color={"color2"} textcolor={"color3"}>
             뒤로가기
           </Button>
         </div>

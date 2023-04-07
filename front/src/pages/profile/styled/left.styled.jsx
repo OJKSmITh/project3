@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Profileimg, Input, Button } from "../../../common";
 import Logo from "../../../common/images/Logo.png";
-import request from '../../../lib/request'
 
 export const LeftWrap = styled.div`
   position: absolute;
@@ -39,16 +38,15 @@ export const LeftWrap = styled.div`
   }
 `;
 
-export const Left = () => {
-
-
+export const Left = ({profileImg}) => {
 
   return (
     <>
       <LeftWrap>
         <div className="logo"></div>
-        <Profileimg id="profileImg"></Profileimg>
-        <Button color={"color1"}>등록하기</Button>
+        <Profileimg id="profileImg">
+          <img src={profileImg} alt="" />
+        </Profileimg>
       </LeftWrap>
     </>
   );

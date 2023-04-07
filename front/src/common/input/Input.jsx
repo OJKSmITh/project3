@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { InputStyled } from "./styled";
 
-export const Input = ({ placeholder, name, type, id, onChange }) => {
+export const Input = ({ placeholder, name, type, id, onChange, state, value }) => {
   const placeholderChip = {
     text1: "Email",
     text2: "Password",
@@ -17,6 +17,8 @@ export const Input = ({ placeholder, name, type, id, onChange }) => {
       type={type}
       id={id}
       onChange={onChange}
+      disabled={state?true:false}
+      value={value}
     />
   );
 };

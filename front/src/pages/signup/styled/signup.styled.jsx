@@ -18,7 +18,7 @@ export const SignupForm = () => {
     e.preventDefault();
     console.log("imgSubmit");
     const body = new FormData(e.target);
-    const response = await request.post("/user/single", body, {
+    const response = await request.post("/single", body, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     console.log("res", response);
@@ -32,12 +32,12 @@ export const SignupForm = () => {
     e.preventDefault();
     const previewImg = document.querySelector("#previewImg");
     const inputImg = document.querySelector("#inputImg");
-    console.log("prev:", previewImg.src);
-    inputImg.src = previewImg.src.split("/")[3];
+    inputImg.src = previewImg.src;
     const { userImg, email, userpw, nickname, phoneNumber, introduce } =
       e.target;
+    console.log("userIMG::::::::::''",userImg.src)
     const body = {
-      userImg: userImg.value,
+      userImg: userImg.src.split("/")[3],
       email: email.value,
       userpw: userpw.value,
       nickname: nickname.value,
@@ -98,7 +98,6 @@ export const SignupForm = () => {
         )}
         <Input placeholder="text2" name="userpw" type="password" />
         <Input placeholder="text2" type="password" />
-
         <Input placeholder="text3" name="nickname" />
         <Input placeholder="text4" name="phoneNumber" />
         <Input placeholder="text5" name="introduce" />
