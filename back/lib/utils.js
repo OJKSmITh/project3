@@ -19,6 +19,11 @@ class Utils {
           data.music = "";
         }
 
+        // || 와 |] 를 | 로 바꿔준다
+        if (line.endsWith("||") || line.endsWith("|]")) {
+          line = line.slice(0, -1);
+        }
+
         data.music += line.trim() + "\n";
       }
     });
