@@ -12,13 +12,12 @@ export const Input = ({ placeholder, name, type, id, onChange, state, value }) =
 
   return (
     <InputStyled
-      placeholder={placeholderChip[placeholder]}
+      placeholder={value?value:placeholderChip[placeholder]}
       name={name}
       type={type}
       id={id}
       onChange={onChange}
       disabled={state?true:false}
-      value={value}
     />
   );
 };

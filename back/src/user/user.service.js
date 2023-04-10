@@ -15,6 +15,15 @@ class UserService {
     }
   }
 
+  async modify({nickname,data}){
+    try{
+      const result = await this.userRepository.updateUser({nickname, data})
+      return result
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+
   async signup(data) {
     try {
       const {email, userpw, nickname} = data

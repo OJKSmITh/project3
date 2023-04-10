@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Profileimg, Input, Button } from "../../../common";
 import Logo from "../../../common/images/Logo.png";
-
+import request from "../../../lib/request";
 export const LeftWrap = styled.div`
   position: absolute;
   left: 0;
@@ -11,15 +11,14 @@ export const LeftWrap = styled.div`
   box-sizing: border-box;
   background: #e9edf1;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   padding: 0 50px;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
 
-  & > Button {
-    margin-top: 30px;
-    padding: 10px 20px;
+  & > form > button {
+    margin-left : 35px;
   }
 
   & > input {
@@ -36,17 +35,48 @@ export const LeftWrap = styled.div`
     height: 150px;
     box-sizing: border-box;
   }
+
 `;
 
-export const Left = ({profileImg}) => {
+export const Left = ({user, modify}) => {
+  console.log(user)
+  console.log(modify)
+  const imgSubmit = async (e) => {
+      e.preventDefault();
+      const body = new FormData(e.target);
+      const response = await request.post("/single", body, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const previewImg = document.querySelector("#previewImg");
+      if(response.status===200){
+        const res = await request.post('/user/me/modify',{userImg:response.data.filename})
+        console.log(res)
+        modify({...user,userImg:response.data.filename})
+
+      }
+      previewImg.src = `http://127.0.0.1:3001/${response.data.filename}`;
+      window.history.go()    
+  }
 
   return (
     <>
       <LeftWrap>
-        <div className="logo"></div>
-        <Profileimg id="profileImg">
-          <img src={profileImg} alt="" />
-        </Profileimg>
+        <form onSubmit={imgSubmit}>
+          <div className="logo"></div>
+          <label htmlFor="image">
+            <Profileimg id="profileImg">
+              <img src={user.userImg} id="previewImg" />
+            </Profileimg>
+          </label>
+            <input
+            type="file"
+            id="image"
+            name="filename"
+            style={{ display: "none" }}
+          />
+          <Button color={"color1"}>업로드</Button>
+        </form>
       </LeftWrap>
     </>
   );

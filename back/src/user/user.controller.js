@@ -16,6 +16,20 @@ class UserController {
     }
   }
 
+  async userModify(req,res,next){
+    try{
+      const nickname = req.cookies.token
+      const data = req.body
+      console.log(data)
+      if(data.userImg) data.userImg=`http://${this.config.host}:${this.config.port}/${data.userImg}`
+      console.log(data)
+      const response = await this.userService.modify({nickname, data})
+      console.log(response)
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+
   async postSignup(req, res, next) {
     try {
       console.log(req.body)

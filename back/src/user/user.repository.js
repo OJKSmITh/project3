@@ -14,12 +14,22 @@ class UserRepository {
       console.log(e.message)
     }
   }
+
   async addUser(payload) {
     try {
       const user = (await this.User.create(payload)).get({plain:true});
       return user;
     } catch (e) {
       throw new Error(e);
+    }
+  }
+
+  async updateUser({nickname, data}){
+    try{
+      const result = await this.User.update({data}, {where:{nickname}})
+      return result
+    }catch(e){
+      console.log('repo:::',e.message)
     }
   }
 
