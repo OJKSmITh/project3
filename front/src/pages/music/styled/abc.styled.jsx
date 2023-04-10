@@ -3,10 +3,11 @@ import { useEffect, useState, useRef } from "react";
 import abcjs from "abcjs";
 import "abcjs/abcjs-audio.css";
 import { fabric } from "fabric";
-// import MidiWriter from "midi-writer-js";
-// import MIDIPlayer from "midi-player-js";
-// import * as Tone from "tone";
-// import MIDIPlayer from 'midi-player-js';
+import MidiWriter from "midi-writer-js";
+import MIDIPlayer from "midi-player-js";
+import * as Tone from "tone";
+import { Midi } from "@tonejs/midi";
+import { Writer } from "midi-writer-js";
 
 export const Abclayout = styled.div`
   background: #fff;
@@ -33,8 +34,6 @@ export const Abc = ({ response }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [file, setFile] = useState(null);
 
-  console.log(response);
-
   useEffect(() => {
     if (response && response.data) {
       const title = response.data.title;
@@ -55,114 +54,104 @@ export const Abc = ({ response }) => {
     }
   }, [response, setAbcString]);
 
-  // const playSounds = async (blob) => {
-  //   const noteContent = response.data.noteContent;
-  //   const noteLength = response.data.noteLength;
-  //   console.log("noteContent:", noteContent, "noteLength:", noteLength);
+  const playSounds = (midiData) => {
+    // Convert the midiData to a Blob and create a URL for it
+    const blob = new Blob([midiData], { type: "application/octet-stream" });
+    const url = URL.createObjectURL(blob);
 
-  //   // 'CAC#EG'를 ['C', 'A', 'C#', 'E', 'G']로 변경
-  //   const pitchArray = noteContent.match(/[A-G]#*/g);
+    // Fetch the MIDI data as an ArrayBuffer and parse it
+    fetch(url)
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => {
+        const midi = new Midi(arrayBuffer);
+        const synth = new Tone.PolySynth().toDestination();
 
-  //   // 각 음표별 duration 설정
-  //   const duration = noteLength === "1/8" ? "1/8" : "1/4";
+        // Create a Tone.Part to play the MIDI notes
+        const midiPart = new Tone.Part((time, event) => {
+          synth.triggerAttackRelease(
+            event.name,
+            event.duration,
+            time,
+            event.velocity
+          );
+        }, midi.tracks[0].notes).start(0);
 
-  //   // pitchArray와 duration을 이용하여 notes를 만들어줍니다.
-  //   const notes = pitchArray.map((pitch) => `${pitch}_4_${duration}`).join(" ");
+        // Start the Tone.Transport and set it to stop after the MIDI file's duration
+        Tone.Transport.start();
+        Tone.Transport.stop(`+${midi.duration}m`);
 
-  //   console.log("notes::::::::", notes);
+        setIsPlaying(true);
 
-  //   const track = new MidiWriter.Track();
-  //   const noteEvents = [
-  //     new MidiWriter.NoteEvent({
-  //       pitch: notes,
-  //       duration: noteLength,
-  //     }),
-  //   ];
+        // Stop the transport after the MIDI file's duration in milliseconds
+        setTimeout(() => {
+          Tone.Transport.cancel();
+          Tone.Transport.stop();
+          setIsPlaying(false);
+        }, Tone.Time(midi.duration).toMilliseconds());
 
-  //   console.log("noteEvents", noteEvents);
+        // Stop the transport after a certain period of time (e.g., 30 seconds)
+        setTimeout(() => {
+          Tone.Transport.cancel();
+          Tone.Transport.stop();
+          setIsPlaying(false);
+        }, 30000);
+      });
+  };
 
-  //   track.addEvent(noteEvents, function (event, index) {
-  //     return { sequential: true };
-  //   });
+  const downloadMidi = () => {
+    console.log(response.data);
+    let noteMusic = response.data.music;
 
-  //   console.log("track::::", track);
+    const splitMusic = noteMusic.split("\n");
+    const beforeDot = splitMusic[0];
+    const afterDot = splitMusic.slice(1).join("");
 
-  //   const writer = new MidiWriter.Writer([track]); // track 을 인코딩
-  //   let dataUri = writer.base64();
+    console.log("beforeDot:::", beforeDot);
+    console.log("afterDot:::", afterDot);
 
-  //   // MIDI 파일 데이터의 첫 번째 바이트를 77로 수정합니다.
-  //   const test = new Audio(`${process.env.PUBLIC_URL}/tone/samsung.mid`);
+    const noteLength = response.data.noteLength;
+    console.log("noteMusic:", afterDot, "noteLength:", noteLength);
 
-  //   async function getFile() {
-  //     const fileUrl = process.env.PUBLIC_URL + "/samsung.mid";
+    const getDurationValue = (noteLength) => {
+      const [numerator, denominator] = noteLength.split("/");
+      return denominator;
+    };
 
-  //     return fetch(fileUrl)
-  //       .then((response) => response.text())
-  //       .then((fileContent) => {
-  //         const fileType = "audio/midi"; // 파일의 MIME 타입
+    const durationValue = getDurationValue(noteLength);
 
-  //         const file = new File([fileContent], "samsung.mid", {
-  //           type: fileType,
-  //         });
+    const afterDotWithoutSpaces = afterDot.split(" ").join("");
+    const pitch = afterDotWithoutSpaces.match(/[A-G]\d/g);
 
-  //         return file;
-  //       });
-  //   }
+    console.log("ptich::::::::", pitch);
+    console.log("durationValue::::::::", durationValue);
 
-  //   let test2 = await getFile();
-  //   console.log("11111111111111111", test2);
-  //   let binary = blob;
-  //   console.log("============", binary);
-  //   let bytes = btoa(
-  //     new Uint8Array(binary).reduce(
-  //       (data, byte) => data + String.fromCharCode(byte),
-  //       ""
-  //     )
-  //   );
-  //   console.log("================", bytes);
+    const track = new MidiWriter.Track();
 
-  //   const midiPlayer = new MIDIPlayer.Player();
+    console.log("track::::::::", track);
+    const noteEvents = pitch.map(
+      (note) =>
+        new MidiWriter.NoteEvent({
+          pitch: note,
+          duration: `${durationValue}`,
+        })
+    );
 
-  //   const synth = new Tone.Synth().toDestination();
+    console.log("noteEvents:::", noteEvents);
 
-  //   midiPlayer.loadDataUri("data:audio/midi;base64," + bytes);
+    track.addEvent(noteEvents, function (event, index) {
+      return { sequential: true };
+    });
 
-  //   midiPlayer.on("midiEvent", (event) => {
-  //     if (event.name === "Note on") {
-  //       synth.triggerAttack(event.noteName, event.time, event.velocity);
-  //     } else if (event.name === "Note off") {
-  //       synth.triggerRelease(event.noteName, event.time);
-  //     }
-  //   });
+    console.log("track:::", track);
 
-  //   setPlayer(midiPlayer);
-  // };
+    const write = new Writer([track]);
 
-  // const downloadMidi = () => {
-  //   const noteContent = response.data.noteContent;
-  //   const noteLength = response.data.noteLength;
-  //   console.log("noteContent:", noteContent, "noteLength:", noteLength);
+    console.log("write:::", write);
+    const midiData = write.buildFile();
+    console.log("midiData:::", midiData);
 
-  //   const track = new MidiWriter.Track();
-  //   const noteEvents = [
-  //     new MidiWriter.NoteEvent({
-  //       pitch: [noteContent],
-  //       duration: `${noteLength}`,
-  //     }),
-  //   ];
-
-  //   console.log(noteEvents);
-  //   track.addEvent(noteEvents, function (event, index) {
-  //     return { sequential: true };
-  //   });
-
-  //   const write = new MidiWriter.Writer([track]);
-  //   const blob = new Blob([write.dataUri()], { type: "audio/midi" });
-  //   console.log(blob);
-  //   // saveAs(blob, "score.mid");
-
-  //   playSounds(blob);
-  // };
+    playSounds(midiData);
+  };
 
   const downloadImage = () => {
     const svg = document.querySelector("#paper svg");
@@ -199,7 +188,7 @@ export const Abc = ({ response }) => {
       </Abclayout>
       <canvas ref={canvasRef} style={{ display: "none" }} />
       <button onClick={downloadImage}>Download Image</button>
-      {/* <button onClick={downloadMidi}>Play Sound</button> */}
+      <button onClick={downloadMidi}>Play Sound</button>
     </>
   );
 };
