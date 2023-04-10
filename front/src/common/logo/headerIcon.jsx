@@ -95,6 +95,12 @@ export const ChatComponent = ({color}) =>{
         }
       }, [modalIsOpen]);
 
+      useEffect(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, [chatContent]);
+
 
       const openModal = () => {
         if(!isLogin) return alert("로그인을 해주세요")
@@ -107,7 +113,10 @@ export const ChatComponent = ({color}) =>{
         socket.emit("user_exit", nickname); // emit user_exit event
       };
       const afterOpenModal = ()=>{
-        dispatch({type:"CHAT/TRUE"})
+        dispatch({ type: "CHAT/TRUE" });
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
       }
       const afterModalClose = () =>{
 
