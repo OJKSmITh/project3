@@ -35,7 +35,6 @@ export const SignupForm = () => {
     inputImg.src = previewImg.src;
     const { userImg, email, userpw, nickname, phoneNumber, introduce } =
       e.target;
-    console.log("userIMG::::::::::''",userImg.src)
     const body = {
       userImg: userImg.src.split("/")[3],
       email: email.value,

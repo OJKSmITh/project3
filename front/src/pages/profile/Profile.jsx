@@ -1,4 +1,4 @@
-import { Wrap, Form, Left, Right } from "./styled";
+ import { Wrap, Form, Left, Right } from "./styled";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import request from "../../lib/request";
@@ -7,13 +7,17 @@ import { useState } from "react";
 export const Profile = () => {
   const {isLogin} = useSelector(state => state.user)
   const [userInfo, setUserInfo] = useState([])
+  const [isModify, setisModify] = useState(false)
 
   useEffect(()=>{
     (async()=>{
       const token = document.cookie.split('=')[1]
       const {data} = await request.get(`/user/me/${token}`)
-      setUserInfo(data)
-    })()
+      // if(Object.entries(userInfo).toString() !== Object.entries(data).toString()) {
+        setUserInfo(data)
+      // }
+
+    })(userInfo)
   },[])
 
   if( !isLogin || !document.cookie){
@@ -22,15 +26,12 @@ export const Profile = () => {
       return 0
   }
 
- 
-
-
   return (
     <>
       <Wrap>
         <Form>
-          <Left profileImg={userInfo.userImg}></Left>
-          <Right user={userInfo}></Right>
+          <Left state={isModify} modify={setUserInfo} user={userInfo}></Left>
+          <Right state={isModify} modify={setisModify} user={userInfo}></Right>
         </Form>
       </Wrap>
     </>
