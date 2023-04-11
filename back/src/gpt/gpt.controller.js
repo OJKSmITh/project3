@@ -8,7 +8,7 @@ class GptController {
       console.log(req.body);
       const { pianoState } = req.body;
       const response = await this.gptService.API({ pianoState });
-      // console.log("controller :::", response);
+      console.log("controller :::", response);
       res.json(response);
     } catch (e) {
       next(e);
