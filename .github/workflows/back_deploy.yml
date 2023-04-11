@@ -15,6 +15,7 @@ jobs:
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
           cd back
+          CI=false
           echo "${ENV_FILE}" > .env
       - name: Upload BackServer build floder to EC2 instance
         env:
@@ -25,7 +26,6 @@ jobs:
           echo "${BACK_PEM_FILE}" > exfrserver.pem
           ls
           chmod 600 exfrserver.pem
-          chmod 400 exfrserver.pem
           mkdir -p ~/.ssh 
           ssh-keyscan -t rsa ${EC2_HOST} >> ~/.ssh/known_hosts
           scp -i exfrserver.pem -r ./back ${EC2_USER}@${EC2_HOST}:/home/ubuntu/www
