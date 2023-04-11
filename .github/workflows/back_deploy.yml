@@ -1,6 +1,5 @@
 name: Back
 on:
-  # pull_request:
   push:
     branches:
       - main
@@ -17,15 +16,14 @@ jobs:
           cd back
           CI=false
           echo "${ENV_FILE}" > .env
-          ls
       - name: Upload BackServer build floder to EC2 instance
         env:
           BACK_PEM_FILE: ${{ secrets.BACK_PEM }}
           EC2_USER: ${{ secrets.BACK_USER }}
           EC2_HOST: ${{ secrets.BACK_HOST }}
         run: |
-          echo "${BACK_PEM_FILE}" > exfrserver.pem
-          chmod 400 exfrserver.pem
+          echo "${BACK_PEM_FILE}" > backserver.pem
+          chmod 400 backserver.pem
           mkdir -p ~/.ssh 
           ssh-keyscan -t rsa ${EC2_HOST} >> ~/.ssh/known_hosts
-          scp -i exfrserver.pem -r ./back ${EC2_USER}@${EC2_HOST}:/home/ubuntu/www
+          scp -i backserver.pem -r ./back ${EC2_USER}@${EC2_HOST}:/home/ubuntu/www
