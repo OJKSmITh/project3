@@ -25,6 +25,7 @@ jobs:
           EC2_HOST: ${{ secrets.BACK_HOST }}
         run: |
           echo "${BACK_PEM_FILE}" > exfrserver.pem
+          ls
           chmod 600 exfrserver.pem
           chmod 400 exfrserver.pem
           mkdir -p ~/.ssh 
