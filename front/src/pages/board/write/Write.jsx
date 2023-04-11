@@ -13,7 +13,7 @@ import { useState } from "react";
 export const Write = () => {
 
     const {isLogin} = useSelector(state => state.user)
-    const [uploadFile, setUploadFile] = useState({})
+    const [uploadFile, setUploadFile] = useState("")
     if( !isLogin || !document.cookie){
         alert("비정상적이 접근입니다.")
         window.location.href = '/'
@@ -25,10 +25,13 @@ export const Write = () => {
         e.preventDefault()
         const { subject, content } = e.target
         const nickname = "test1"
-        const data = { subject:subject.value, content: content.value, nickname, upload: uploadFile}
+        const data = { subject:subject.value, content: content.value, nickname, uploadImg: uploadFile}
         const response = await request.post("/board",data)
-        console.log(data)
-        // if (response.status === 200) window.location.href='/community'
+        if (response.status === 200) window.location.href='/community'
+    }
+
+    const upload = (data) => {
+        setUploadFile(data)
     }
 
     
@@ -39,7 +42,7 @@ export const Write = () => {
                 <ContentBox></ContentBox>
                 <SubBtn>완료</SubBtn>
             </WriteSubmit>
-            <Upload uploadfile={setUploadFile}></Upload>
+            <Upload uploadfile={upload} file={uploadFile}></Upload>
         </WriteBox>
     </>
 };

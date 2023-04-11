@@ -26,7 +26,7 @@ router.get('/download/:filename',(req,res,next)=>{
 })
 
 router.post("/single", upload.single("filename"), (req, res) => {
-    console.log(req.file)
+    console.log('file:::',req.file)
     res.send(req.file);
 });
 
