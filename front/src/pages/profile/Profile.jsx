@@ -19,6 +19,14 @@ export const Profile = () => {
 
     })(userInfo)
   },[])
+  
+  const modify = ()=>{
+    setisModify(!isModify)
+  }
+
+  const user = (data) => {
+    setUserInfo(data)
+  }
 
   if( !isLogin || !document.cookie){
       alert("비정상적이 접근입니다.")
@@ -30,8 +38,8 @@ export const Profile = () => {
     <>
       <Wrap>
         <Form>
-          <Left state={isModify} modify={setUserInfo} user={userInfo}></Left>
-          <Right state={isModify} modify={setisModify} user={userInfo}></Right>
+          <Left state={isModify} modify={user} user={userInfo}></Left>
+          <Right state={isModify} modify={modify} user={userInfo}></Right>
         </Form>
       </Wrap>
     </>

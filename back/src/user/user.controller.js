@@ -20,11 +20,12 @@ class UserController {
     try{
       const nickname = req.cookies.token
       const data = req.body
-      console.log(data)
+      console.log('ctrl:::',data)
       if(data.userImg) data.userImg=`http://${this.config.host}:${this.config.port}/${data.userImg}`
       console.log(data)
       const response = await this.userService.modify({nickname, data})
       console.log(response)
+      res.send(response)
     }catch(e){
       console.log(e.message)
     }

@@ -51,9 +51,7 @@ export const Left = ({user, modify}) => {
       const previewImg = document.querySelector("#previewImg");
       if(response.status===200){
         const res = await request.post('/user/me/modify',{userImg:response.data.filename})
-        console.log(res)
-        modify({...user,userImg:response.data.filename})
-
+        modify({userImg:response.data.filename})
       }
       previewImg.src = `http://127.0.0.1:3001/${response.data.filename}`;
       window.history.go()    
