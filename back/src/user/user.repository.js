@@ -26,7 +26,9 @@ class UserRepository {
 
   async updateUser({nickname, data}){
     try{
-      const result = await this.User.update({data}, {where:{nickname}})
+      console.log("repo 인자:::",nickname, data)
+      const result = await this.User.update(data, {where:{nickname}})
+      console.log('repo result',result)
       return result
     }catch(e){
       console.log('repo:::',e.message)

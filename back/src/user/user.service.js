@@ -18,6 +18,7 @@ class UserService {
   async modify({nickname,data}){
     try{
       const result = await this.userRepository.updateUser({nickname, data})
+      console.log('serv result:::',result)
       return result
     }catch(e){
       console.log(e.message)
