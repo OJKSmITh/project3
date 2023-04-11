@@ -11,6 +11,7 @@ export const View = () => {
     useEffect(()=>{
         (async()=>{
             const {data} = await request.get(`/board/view/${id}`)
+            console.log(data)
             setBoardState(data)
         })()
     },[])
@@ -20,7 +21,7 @@ export const View = () => {
         <ViewBox>
             <SubjectBox subject={boardState.subject}></SubjectBox>
             <ContentBox>{boardState.content}</ContentBox>
-            <FileBox>파일데이터</FileBox>
+            <FileBox>{boardState.uploadImg}</FileBox>
         </ViewBox>
     </>
 }

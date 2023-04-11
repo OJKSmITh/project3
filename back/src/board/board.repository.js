@@ -31,6 +31,7 @@ class BoardRepository {
 
     async createBoard(payload) {
         try{
+            console.log(payload)
             const test = await this.Board.create(payload, {raw:true})
         }catch(e){
             console.log(e)

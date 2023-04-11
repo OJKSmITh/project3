@@ -60,7 +60,7 @@ export const FileBox = ({children}) => {
     `
 
     return (<>
-        <FileSpan>파일: </FileSpan><FileSpan>{children} 다운로드 링크</FileSpan>
+        <FileSpan>파일: </FileSpan><span><a href={`http://127.0.0.1:3001:${children}`} download={"image"}>{children}</a></span>
     </> 
     )
 }
