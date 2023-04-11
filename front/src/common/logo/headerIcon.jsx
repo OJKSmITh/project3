@@ -90,8 +90,12 @@ export const ChatComponent = ({color}) =>{
       }, [socket, nickname]);
 
       useEffect(() => {
-        if (modalIsOpen && inputRef.current) {
-          inputRef.current.focus();
+        if (modalIsOpen) {
+          console.log("Modal is open");
+          if (inputRef.current) {
+            console.log("Focusing the input element");
+            inputRef.current.focus();
+          }
         }
       }, [modalIsOpen]);
 
@@ -199,7 +203,10 @@ export const ChatComponent = ({color}) =>{
           <Modal
             isOpen={modalIsOpen}
             style={customStyles}
-            onAfterOpen={afterOpenModal}
+            onAfterOpen={() => {
+              console.log("onAfterOpen called");
+              afterOpenModal();
+            }}
             onRequestClose={closeModal}
             onAfterClose={afterModalClose}
           >
