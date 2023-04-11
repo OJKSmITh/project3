@@ -16,6 +16,7 @@ jobs:
           cd back
           CI=false
           echo "${ENV_FILE}" > .env
+          ls
       - name: Upload BackServer build floder to EC2 instance
         env:
           BACK_PEM_FILE: ${{ secrets.BACK_PEM }}
