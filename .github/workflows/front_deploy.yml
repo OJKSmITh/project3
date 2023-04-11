@@ -2,7 +2,7 @@ name: Front
 on:
   push:
     branches:
-      - main
+      - gyeong
 jobs:
   build_and_upload:
     runs-on: ubuntu-20.04
