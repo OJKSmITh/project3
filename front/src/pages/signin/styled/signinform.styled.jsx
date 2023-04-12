@@ -72,8 +72,7 @@ export const SigninForm = ({ history }) => {
   };
 
   const googleLogin = async () => {
-    const GOOGLE_CLIENT_ID =
-      "888046920176-b3dfcncj4c06lti1h3o6cpt7davrp150.apps.googleusercontent.com";
+    const GOOGLE_CLIENT_ID ="888046920176-b3dfcncj4c06lti1h3o6cpt7davrp150.apps.googleusercontent.com";
     const GOOGLE_REDIRECT_URI = "https://api.hanjin.shop/oauth/google";
     const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile openid`;
     window.location.href = GOOGLE_AUTH_URL;
