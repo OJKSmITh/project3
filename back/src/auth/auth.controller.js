@@ -42,6 +42,7 @@ class AuthController {
     try {
       let {email:{props}} = req.body
       let email = props
+      console.log(email, "dvsdfsdfsdfsdf")
       const repetition = await this.authService.repetition({email})
       if(repetition !==null) return res.status(600).send("아이디가 중복됩니다")
       const value = await this.mail(email)
