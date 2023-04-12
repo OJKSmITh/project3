@@ -24,7 +24,7 @@ export const SignupForm = () => {
     console.log("res", response);
 
     const previewImg = document.querySelector("#previewImg");
-    previewImg.src = `http://127.0.0.1:3001/${response.data.filename}`;
+    previewImg.src = `https://api.hanjin.shop/${response.data.filename}`;
   }
 
 
@@ -44,7 +44,7 @@ export const SignupForm = () => {
       introduce: introduce.value,
     };
     const response = await request.post("/user/signup", body);
-    window.location.href = "http://localhost:3000/signin";
+    window.location.href = "https://hanjin.shop/signin";
   };
 
   const handleInputChange = (e) => {

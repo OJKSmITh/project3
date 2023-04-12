@@ -13,7 +13,6 @@ class AuthRepository {
           userpw,
         },
       });
-      console.log(user)
       return user;
     } catch (e) {
       throw new Error(e);

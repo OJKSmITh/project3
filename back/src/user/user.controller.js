@@ -98,7 +98,7 @@ class UserController {
       const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID
       const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET
       const NAVER_TOKEN_URI = `${HOST}&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}`
-      const NAVER_CALL_BACK="http://localhost:3001/oauth/naver"
+      const NAVER_CALL_BACK="https://api.hanjin.shop/oauth/naver"
       const response = await this.axios.post(NAVER_TOKEN_URI) 
       // console.log(response)
       const headers = {
@@ -117,8 +117,12 @@ class UserController {
         level:"user"
       }
       const response2 = await this.userService.naverSignup(userInfo)
-      res.cookie("token", response2.nickname)
-      res.redirect(`http://localhost:3000`)
+      res.cookie('token', token, {
+        maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
+        secure: true, // Secure 속성 추가
+        domain: ".hanjin.shop" 
+      });
+      res.redirect(`https://hanjin.shop`)
     } catch (e) {
       next(e)
     }
@@ -153,7 +157,7 @@ class UserController {
       const {data} = await this.axios.get(googleInfoUrl, {headers})
       const response2 = await this.userService.googleSignup(data)
       res.cookie("token", response2.nickname)
-      res.redirect(`http://localhost:3000`)
+      res.redirect(`https://hanjin.shop`)
     } catch (e) {
       next(e)
     }
