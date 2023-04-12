@@ -117,6 +117,7 @@ class UserController {
         level:"user"
       }
       const response2 = await this.userService.naverSignup(userInfo)
+      console.log(response2, " response2::::::::::::::::::::::")
       res.cookie('token', token, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         secure: true, // Secure 속성 추가
