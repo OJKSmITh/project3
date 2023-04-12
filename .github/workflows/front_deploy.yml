@@ -13,7 +13,6 @@ jobs:
         run: |
           cd ./front
           npm install
-          ls
           CI=false 
           npm run build
       - name: transport build
