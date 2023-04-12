@@ -47,6 +47,7 @@ class AuthController {
       if(repetition !==null) return res.status(600).send("아이디가 중복됩니다")
       const value = await this.mail(email)
       req.session.random = value
+      console.log(req.session, "req.session입니다아아아아아아아아아아아아아아아아아아")
       const sessionId = req.session.id
       res.cookie("sessionId", sessionId)
       res.json(sessionId)
@@ -58,6 +59,8 @@ class AuthController {
   async postNumbercheck(req,res,next){
     try {
       const {number, sessionId} = req.body
+
+      console.log(number, sessionId, "session::::::::::::::::::::::")
       const result = new Promise((resolve, reject)=>{
         req.sessionStore.get(sessionId, (error, session)=>{
           if(error){
@@ -68,6 +71,7 @@ class AuthController {
         })
       })
       const prevSession = await result
+      console.log(prevSession, "prevSession 입니다아아아아아아아아아아아아ㅏ아아아아아아아앙")
       if(number === prevSession.random){
         res.clearCookie("sessionId")
         res.status(200).send(true)
