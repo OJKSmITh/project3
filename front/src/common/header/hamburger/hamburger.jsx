@@ -17,7 +17,8 @@ export const HamburgerButtonComponent = () => {
 
   const logoutAction = () =>{
     dispatch({type:'USER/LOGOUT'})
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    const domain = '.hanjin.shop'
+    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`
     toggleSubMenu()
     window.location.href='/'
   }
