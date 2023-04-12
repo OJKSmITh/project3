@@ -132,7 +132,6 @@ class UserController {
   async googleSignin(req, res, next){
     try {
       const {code} = req.query
-      console.log(code, "goggle:::::::::::::::::::::::")
       const GOOGLE_TOKEN_URI = `https://oauth2.googleapis.com/token`
       const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
       const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
@@ -149,6 +148,7 @@ class UserController {
         grant_type: GOOGLE_GRANT_TYPE
       }
       const response = await this.axios.post(GOOGLE_TOKEN_URI, data1, {header})
+      console.log(response, "첫번쨰 response :::::::::::::::::")
       const {access_token} = response.data
       const googleInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo"
       const headers = {
@@ -157,7 +157,9 @@ class UserController {
         'Accept': 'application/json'
       }
       const {data} = await this.axios.get(googleInfoUrl, {headers})
+      console.log(data, "여기가 data다아아아ㅏㅇ아ㅏ아아아아아아아아앙:::::")
       const response2 = await this.userService.googleSignup(data)
+      console.log(response2, "여기가 response2이다아아아아아ㅏ아아아아아")
       res.cookie("token", response2.nickname)
       res.redirect(`https://hanjin.shop`)
     } catch (e) {
