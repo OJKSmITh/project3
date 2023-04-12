@@ -44,7 +44,7 @@ export const SignupForm = () => {
       introduce: introduce.value,
     };
     const response = await request.post("/user/signup", body);
-    window.location.href = "https://hanjin.shop";
+    window.location.href = "https://hanjin.shop/signin";
   };
 
   const handleInputChange = (e) => {
