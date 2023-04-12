@@ -14,7 +14,12 @@ class AuthController {
       if(typeof token === "object" ){
         res.send(false)
       }
-      res.cookie("token", token);
+      console.log(token)
+      res.cookie('token', token, {
+        maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
+        secure: true, // Secure 속성 추가
+        domain: ".hanjin.shop" 
+      });
       res.send(true);
     } catch (e) {
       next(e);
