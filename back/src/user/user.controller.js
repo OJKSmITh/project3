@@ -132,6 +132,7 @@ class UserController {
   async googleSignin(req, res, next){
     try {
       const {code} = req.query
+      console.log(code, "goggle:::::::::::::::::::::::")
       const GOOGLE_TOKEN_URI = `https://oauth2.googleapis.com/token`
       const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
       const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
