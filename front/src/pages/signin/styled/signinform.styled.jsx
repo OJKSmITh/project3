@@ -43,7 +43,7 @@ export const SigninForm = ({history}) => {
     e.preventDefault()
     const useremail = e.target.useremail.value
     const userpw = e.target.userpw.value
-    const result = await axios.post("http://localhost:3001/auth", {useremail, userpw}, {withCredentials:true})
+    const result = await axios.post("https://api.hanjin.shop/auth", {useremail, userpw}, {withCredentials:true})
     console.log(result)
     if(result.data){
       dispatch({type:"USER/LOGIN", payload:result.data})
@@ -55,7 +55,7 @@ export const SigninForm = ({history}) => {
 
   const kakaoLogin = async (e) => {
     const REST_API_KEY = "5b3b08b057b1fcec026c0d76f74db766"
-    const REDIRECT_URI =  "http://localhost:3001/oauth/kakao"
+    const REDIRECT_URI =  "https://api.hanjin.shop/oauth/kakao"
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href= KAKAO_AUTH_URL
   }
