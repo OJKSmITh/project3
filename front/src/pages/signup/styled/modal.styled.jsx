@@ -54,7 +54,7 @@ export const ModalChang = (props) =>{
   
     const afterOpenModal = async () =>{
         try {
-            const result = await axios.post("http://localhost:3001/auth/mail", {email:props} ,{withCredentials:true})
+            const result = await axios.post("https://api.hanjin.shop/auth/mail", {email:props} ,{withCredentials:true})
         } catch (e) {
             alert("아이디가 중복됩니다")
             setIsOpen(false)
@@ -73,7 +73,7 @@ export const ModalChang = (props) =>{
         e.preventDefault()
         const cookies = document.cookie.split("=")
         const sessionId = cookies[1]
-        const result =await axios.post("http://localhost:3001/auth/number", {number:randomNum, sessionId},{withCredentials:true})
+        const result =await axios.post("https://api.hanjin.shop/auth/number", {number:randomNum, sessionId},{withCredentials:true})
         dispatch({type:"EMAIL/TRUE"})
     }
 
