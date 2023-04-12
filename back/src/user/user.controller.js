@@ -83,7 +83,8 @@ class UserController {
       res.cookie('token', token, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         httpOnly: true, // HTTPOnly 속성 추가
-        secure: true // Secure 속성 추가
+        secure: true, // Secure 속성 추가
+        domain: ".hanjin.shop" 
       });
       res.redirect(`https://hanjin.shop`)
     } catch(e) {
