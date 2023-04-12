@@ -59,7 +59,7 @@ export const SigninForm = ({ history }) => {
 
   const kakaoLogin = async (e) => {
     const REST_API_KEY = "5b3b08b057b1fcec026c0d76f74db766";
-    const REDIRECT_URI = "https://api.jjerry.store/oauth/kakao";
+    const REDIRECT_URI = "https://api.hanjin.shop/oauth/kakao";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = KAKAO_AUTH_URL;
   };
