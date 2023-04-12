@@ -11,9 +11,10 @@ const App = () => {
     if (document.cookie.split("=")[0] === "token") {
       const token = document.cookie.split("=")[1];
       (async () => {
-        const response = await axios.post("https://api.jjerry.store/auth/sns", {
+        const response = await axios.post("https://api.hanjin.shop/auth/sns", {
           token,
         });
+        console.log(response)
         if (response.status === 200 && response.data.email) {
           dispatch({ type: "USER/LOGIN", payload: response.data });
         }
