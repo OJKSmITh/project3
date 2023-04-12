@@ -49,7 +49,11 @@ class AuthController {
       req.session.random = value
       console.log(req.session, "req.session입니다아아아아아아아아아아아아아아아아아아")
       const sessionId = req.session.id
-      res.cookie("sessionId", sessionId)
+      res.cookie('sessionId', sessionId, {
+        maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
+        secure: true, // Secure 속성 추가
+        domain: ".hanjin.shop" 
+      });
       res.json(sessionId)
     } catch (e) {
       next(e)
