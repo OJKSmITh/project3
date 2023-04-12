@@ -160,7 +160,11 @@ class UserController {
       console.log(data, "여기가 data다아아아ㅏㅇ아ㅏ아아아아아아아아앙:::::")
       const response2 = await this.userService.googleSignup(data)
       console.log(response2, "여기가 response2이다아아아아아ㅏ아아아아아")
-      res.cookie("token", response2.nickname)
+      res.cookie('token', response2.nickname, {
+        maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
+        secure: true, // Secure 속성 추가
+        domain: ".hanjin.shop" 
+      });
       res.redirect(`https://hanjin.shop`)
     } catch (e) {
       next(e)
