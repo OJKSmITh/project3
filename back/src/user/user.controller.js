@@ -80,8 +80,11 @@ class UserController {
       }
       const response2 = await this.userService.kakaoSignup(userInfo)
       const token = data.id
-      res.cookie("token", token)
-      console.log(token)
+      res.cookie('token', token, {
+        maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
+        httpOnly: true, // HTTPOnly 속성 추가
+        secure: true // Secure 속성 추가
+      });
       res.redirect(`https://hanjin.shop`)
     } catch(e) {
       next(e)
