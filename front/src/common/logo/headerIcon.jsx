@@ -41,7 +41,7 @@ export const ChatComponent = ({color}) =>{
         };
 
         useEffect(() => {
-        const newSocket = openSocket.connect("http://localhost:3001", {
+        const newSocket = openSocket.connect("https://api.hanjin.shop", {
           transports: ["websocket"],
         });
 
