@@ -80,7 +80,7 @@ class UserController {
       const response2 = await this.userService.kakaoSignup(userInfo)
       const token = data.id
       res.cookie("token", token)
-      res.redirect(`http://localhost:3000`)
+      res.redirect(`https://hanjin.shop`)
     } catch(e) {
       next(e)
     }
