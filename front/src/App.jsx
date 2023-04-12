@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import axios from "axios"
 
 const App = ()=> {
+  console.log("hihihihihi")
   const dispatch = useDispatch()
   const {isLogin, loadding, error, data} = useSelector(state => state.user)
   useEffect(()=>{
