@@ -38,7 +38,8 @@ export const Span = styled.span`
 export const SigninForm = ({history}) => {
   const dispatch = useDispatch()
   const navigate =useNavigate()
-
+  const REDIRECT_URI =  "https://api.hanjin.shop/oauth/kakao"
+  console.log(REDIRECT_URI)
   const handleSubmit = async (e) =>{
     e.preventDefault()
     const useremail = e.target.useremail.value
