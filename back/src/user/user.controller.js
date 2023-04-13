@@ -73,8 +73,7 @@ class UserController {
       })
       console.log(data, "data:::::::::::::::::::::::::::::::")
       const koreanName = data.kakao_account.profile.nickname;
-      const romanizer = new Romanization();
-      const englishName = romanizer.romanize(koreanName)
+      const englishName = Romanization.romanize(koreanName)
       console.log(englishName, "englishName ::::::::::::::::::::::::::::")
 
       const userInfo = {
