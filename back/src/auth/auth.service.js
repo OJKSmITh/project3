@@ -28,6 +28,7 @@ class AuthService {
 
   async Snscheck({token}){
     try {
+      console.log(token, "snscheck ::::::::::::::::::")
       const hash = this.crypto
         .createHmac("sha256", "web7722")
         .update(token)
