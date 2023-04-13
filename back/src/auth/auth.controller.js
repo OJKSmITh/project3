@@ -29,8 +29,15 @@ class AuthController {
   async postSnsLogin(req,res,next) {
     try {
       const {token} = req.body
-      console.log(token)
-      const response = await this.authService.Snscheck({token}) 
+      let decodedToken
+      if (/[\u0080-\uffff]/.test(token)) {
+        // 쿠키 값이 UTF-8로 인코딩된 경우
+        decodedToken = decodeURIComponent(token);
+      } else {
+        // 쿠키 값이 인코딩되지 않은 경우
+        decodedToken = token;
+      }
+      const response = await this.authService.Snscheck({decodedToken}) 
       console.log(response, "auth.controller : :::::::::::::::::::")
       res.cookie("token", token)
       res.status(200).json(response)
