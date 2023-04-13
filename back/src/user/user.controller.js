@@ -1,4 +1,4 @@
-const Romanization = require('hangul-romanization').default
+const { Romanization } = require('hangul-romanization').default
 
 class UserController {
   constructor({ userService, qs, axios, config}) {
