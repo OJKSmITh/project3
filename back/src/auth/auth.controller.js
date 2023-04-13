@@ -31,6 +31,7 @@ class AuthController {
       const {token} = req.body
       console.log(token)
       const response = await this.authService.Snscheck({token}) 
+      console.log(response, "auth.controller : :::::::::::::::::::")
       res.cookie("token", token)
       res.status(200).json(response)
     } catch (e) {
