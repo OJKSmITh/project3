@@ -60,6 +60,7 @@ class UserController {
         client_secret: CLIENT_SECRET
       })
       const response = await this.axios.post(host, body, headers)
+      console.log(response, "resposne:::::::::::::::::::::::::")
       const { access_token } = response.data
       const hostUser = `https://kapi.kakao.com/v2/user/me`
       const {data} = await this.axios.post(hostUser, null,{
@@ -68,6 +69,7 @@ class UserController {
           Authorization:`Bearer ${access_token}`
         }
       })
+      console.log(data, "data:::::::::::::::::::::::::::::::")
 
       const userInfo = {
         email: data.kakao_account.email,
@@ -78,7 +80,9 @@ class UserController {
         level:"user"
       }
       const response2 = await this.userService.kakaoSignup(userInfo)
+      console.log(response2, "resposne2 ::::::::::::::::::::")
       const token = userInfo.nickname
+      console.log(token , "token :::::::::::::::::::")
       res.cookie('token', token, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         secure: true, // Secure 속성 추가
