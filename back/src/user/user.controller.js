@@ -1,10 +1,11 @@
+const { romanize } = require('hangul-romanization')
+
 class UserController {
-  constructor({ userService, qs, axios, config, Romanization }) {
+  constructor({ userService, qs, axios, config}) {
     this.userService = userService;
     this.qs = qs
     this.axios = axios
     this.config = config
-    this.Romanization = Romanization
   }
 
   async getMe(req,res,next) {
@@ -73,8 +74,7 @@ class UserController {
       })
       console.log(data, "data:::::::::::::::::::::::::::::::")
       const koreanName = data.kakao_account.profile.nickname;
-      
-      const englishName = this.Romanization(koreanName);
+      const englishName = romanize(koreanName);
       console.log(englishName, "englishName ::::::::::::::::::::::::::::")
 
       const userInfo = {
