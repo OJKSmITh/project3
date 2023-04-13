@@ -1,9 +1,10 @@
 class UserController {
-  constructor({ userService, qs, axios, config }) {
+  constructor({ userService, qs, axios, config, Romanization }) {
     this.userService = userService;
     this.qs = qs
     this.axios = axios
     this.config = config
+    this.Romanization = Romanization
   }
 
   async getMe(req,res,next) {
@@ -83,8 +84,11 @@ class UserController {
       const response2 = await this.userService.kakaoSignup(userInfo)
       console.log(response2, "resposne2 ::::::::::::::::::::")
       const token = userInfo.nickname
-      const encodedToken = encodeURIComponent(token)
-      res.cookie('token', token, {
+      const koreanName = token;
+      const romanizer = new Romanization();
+      const englishName = romanizer.romanize(koreanName);
+      console.log(englishName, "english name :::::::::::::::::")
+      res.cookie('token', englishName, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         secure: true, // Secure 속성 추가
         domain: ".hanjin.shop" 
