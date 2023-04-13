@@ -33,7 +33,6 @@ class UserController {
 
   async postSignup(req, res, next) {
     try {
-      console.log(req.body)
       req.body.userImg = `http://${this.config.host}:${this.config.port}/${req.body.userImg}`
       const user = await this.userService.signup(req.body);
       res.status(201).json(user);
@@ -79,7 +78,7 @@ class UserController {
         level:"user"
       }
       const response2 = await this.userService.kakaoSignup(userInfo)
-      const token = data.id
+      const token = userInfo.nickname
       res.cookie('token', token, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         secure: true, // Secure 속성 추가
