@@ -1,5 +1,3 @@
-const { Romanization } = require('hangul-romanization').default
-
 class UserController {
   constructor({ userService, qs, axios, config}) {
     this.userService = userService;
@@ -72,13 +70,11 @@ class UserController {
         }
       })
       console.log(data, "data:::::::::::::::::::::::::::::::")
-      const koreanName = data.kakao_account.profile.nickname;
-      const englishName = Romanization.romanize(koreanName)
-      console.log(englishName, "englishName ::::::::::::::::::::::::::::")
+     
 
       const userInfo = {
         email: data.kakao_account.email,
-        nickname: englishName,
+        nickname: data.kakao_account.profile.nickname,
         userpw: data.id,
         phoneNumber: "01000000000",
         userImg: data.properties.profile_image,
@@ -87,7 +83,7 @@ class UserController {
       console.log(userInfo, "userInfo::::::::::::::::::::::::::::::::")
       const response2 = await this.userService.kakaoSignup(userInfo)
       console.log(response2, "resposne2 ::::::::::::::::::::")
-      const token = userInfo.nickname
+      const token = data.id
       
       console.log(englishName, "english name :::::::::::::::::")
       res.cookie('token', englishName, {
