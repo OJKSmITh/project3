@@ -79,10 +79,11 @@ class UserController {
         userImg: data.properties.profile_image,
         level:"user"
       }
+      console.log(userInfo, "userInfo::::::::::::::::::::::::::::::::")
       const response2 = await this.userService.kakaoSignup(userInfo)
       console.log(response2, "resposne2 ::::::::::::::::::::")
       const token = userInfo.nickname
-      console.log(token , "token :::::::::::::::::::")
+      const encodedToken = encodeURIComponent(token)
       res.cookie('token', token, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         secure: true, // Secure 속성 추가
