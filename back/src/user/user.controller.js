@@ -85,8 +85,7 @@ class UserController {
       console.log(response2, "resposne2 ::::::::::::::::::::")
       const token = data.id
       
-      console.log(englishName, "english name :::::::::::::::::")
-      res.cookie('token', englishName, {
+      res.cookie('token', token, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
         secure: true, // Secure 속성 추가
         domain: ".hanjin.shop" 
