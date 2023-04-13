@@ -71,10 +71,13 @@ class UserController {
         }
       })
       console.log(data, "data:::::::::::::::::::::::::::::::")
+      const koreanName = data.kakao_account.profile.nickname;
+      const romanizer = new Romanization();
+      const englishName = romanizer.romanize(koreanName);
 
       const userInfo = {
         email: data.kakao_account.email,
-        nickname: data.kakao_account.profile.nickname,
+        nickname: englishName,
         userpw: data.id,
         phoneNumber: "01000000000",
         userImg: data.properties.profile_image,
@@ -84,9 +87,7 @@ class UserController {
       const response2 = await this.userService.kakaoSignup(userInfo)
       console.log(response2, "resposne2 ::::::::::::::::::::")
       const token = userInfo.nickname
-      const koreanName = token;
-      const romanizer = new Romanization();
-      const englishName = romanizer.romanize(koreanName);
+      
       console.log(englishName, "english name :::::::::::::::::")
       res.cookie('token', englishName, {
         maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정
