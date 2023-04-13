@@ -44,7 +44,6 @@ class UserController {
   }
 
   async kakaoSignin(req, res, next){
-    console.log(this.Romanization, "Romanization::::::::::::::::::::::::::::")
     try{
       const {code} = req.query
       const kakaoHost = process.env.KAKAO_HOST
