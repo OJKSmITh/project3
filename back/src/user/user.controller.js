@@ -1,4 +1,4 @@
-const HangulRomanization = require('hangul-romanization')
+const Romanization = require('hangul-romanization')
 
 class UserController {
   constructor({ userService, qs, axios, config}) {
@@ -74,7 +74,7 @@ class UserController {
       })
       console.log(data, "data:::::::::::::::::::::::::::::::")
       const koreanName = data.kakao_account.profile.nickname;
-      const englishName = HangulRomanization.romanize(koreanName);
+      const englishName = Romanization(koreanName);
       console.log(englishName, "englishName ::::::::::::::::::::::::::::")
 
       const userInfo = {
