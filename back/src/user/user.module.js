@@ -14,12 +14,11 @@ const crypto = require("crypto");
 const qs = require("qs")
 const jwt = new JWT({ crypto });
 const axios = require("axios")
-const Romanization = require('hangul-romanization')
-const romanizer = new Romanization();
+const {romanize} = require('hangul-romanization')
 
 const userRepository = new UserRepository({ User });
 const userService = new UserService({ userRepository, jwt, DateFormat });
-const userController = new UserController({ userService, qs, axios, config, Romanization:romanizer });
+const userController = new UserController({ userService, qs, axios, config, Romanization:romanize });
 
 module.exports = {
   userController,
