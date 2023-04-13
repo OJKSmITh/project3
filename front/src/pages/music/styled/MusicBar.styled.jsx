@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MusicBarLayout = styled.div`
   width: 100%;
   height: 30rem;
-  margin-top: 600px;
+  margin-top: 660px;
   display: flex;
   /* justify-content: ${(left) => (left ? "flex-end" : "flex-start")}; */
 
