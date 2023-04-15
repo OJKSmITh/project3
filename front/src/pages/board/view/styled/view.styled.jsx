@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import request from '../../../../lib/request'
 
 export const  ViewBox = styled.div`
     & > div:nth-child(1) {
@@ -59,8 +60,15 @@ export const FileBox = ({children}) => {
         line-height: 36px;
     `
 
+    const fileDownload = async (e) => {
+        e.preventDefault()
+        console.log(e.target.innerHTML)
+        // const res = await request.get(`/download/`)
+        
+    }
+
     return (<>
-        <FileSpan>파일: </FileSpan><span><a href={`http://127.0.0.1:3001:${children}`} download={"image"}>{children}</a></span>
+        <FileSpan>파일: </FileSpan><span><a onClick={fileDownload}>{children}</a></span>
     </> 
     )
 }
